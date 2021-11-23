@@ -10,12 +10,17 @@ public class UserInterface {
                 (0) Luk programmet
                 (1) Log ind
                 (2) Opret bruger
-                (3) Se forventet kontingent
-                (4) Se medlemmer
-                (5) Se top 5""");
+                (3) Skift til konkurrencesvømmer
+                (4) Se forventet kontingent
+                (5) Se medlemmer
+                (6) Se top 5""");
     }
     public String userInput(){
         return scanner.nextLine();
+    }
+
+    public int userIntput(){
+        return scanner.nextInt();
     }
 
     public void printMessage(String s) {

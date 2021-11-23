@@ -12,31 +12,68 @@ public class Controller {
             String userInput = ui.userInput();
             switch (userInput) {
                 case "0":
-                    System.exit(0);
+                    exit();
                     break;
                 case "1":
                     login();
                     break;
                 case "2":
-                    createUser();
+                    createMember();
                     break;
                 case "3":
+                    //changeToCompSwimmer();
+                case "4":
                     seeContingent();
                     break;
-                case "4":
+                case "5":
                     seeMembers();
                     break;
-                case "5":
+                case "6":
                     topFive();
                     break;
             }
         }
     }
 
+
     private void login() {
     }
 
-    private void createUser() {
+    private void createMember() {
+        //henter navn, alder, medlemskabstype
+        ui.printMessage("Indtast personens fulde navn:");
+        String fullName = ui.userInput();
+        ui.printMessage("Indtast alder:");
+        int age = ui.userIntput();
+        ui.printMessage("Har medlemmet et aktivt medlemskab? (j/n)");
+        ui.userInput();
+        String answer = ui.userInput();
+
+        // laver en boolean for at sætte medlemskabstype til aktiv eller passiv
+        boolean activeMembership = false;
+        String team;
+        if (answer.equalsIgnoreCase("J")) {
+            activeMembership = true;
+        }
+
+
+        //hvis medlemmet ønsker at være konkurrencesvømmer vil metoden oprette en ny konkurencesvømmer
+        //ellers vil den bare oprette et almindeligt medlem
+        ui.printMessage("Ønsker medlemmet at være konkurrencesvømmer? (j/n)");
+        String input = ui.userInput();
+        if (input.equalsIgnoreCase("J")) {
+            ui.printMessage("Hvilken disciplin?");
+            String disciplin = ui.userInput();
+            CompSwimmer member = new CompSwimmer(fullName, age, activeMembership, disciplin);
+            System.out.println(member.toString());
+        } else {
+            Member member = new Member(fullName, age, activeMembership);
+            System.out.println(member.toString());
+        }
+
+    }
+
+    private void changeToCompSwimmer(Member member) {
     }
 
     private void seeContingent() {
@@ -46,5 +83,9 @@ public class Controller {
     }
 
     private void topFive() {
+    }
+
+    public void exit() {
+        isRunning = false;
     }
 }

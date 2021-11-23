@@ -4,13 +4,41 @@ public class Member {
 
     protected String fullName;
     protected int age;
-    protected String membership;
+    protected boolean activeMembership;
     protected String team;
 
-    public Member(String fullName, int age, String membership, String team) {
+    public Member(String fullName, int age, boolean activeMembership) {
         this.fullName = fullName;
         this.age = age;
-        this.membership = membership;
-        this.team = team;
+        this.activeMembership = activeMembership;
+        if (age < 18) {
+            this.team = "Junior";
+        } else this.team = "Senior";
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isActiveMembership() {
+        return activeMembership;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "fullName='" + fullName + '\'' +
+                ", age=" + age +
+                ", activeMembership=" + activeMembership +
+                ", team='" + team + '\'' +
+                '}';
     }
 }

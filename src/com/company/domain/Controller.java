@@ -1,10 +1,12 @@
 package com.company.domain;
 
+import com.company.database.FileHandler;
 import com.company.ui.UserInterface;
 
 public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
+    private FileHandler fh = new FileHandler();
 
     public void start() {
         while (isRunning) {
@@ -66,9 +68,11 @@ public class Controller {
             ui.printMessage("Hvilken disciplin?");
             String disciplin = ui.userInput();
             CompSwimmer member = new CompSwimmer(fullName, age, activeMembership, disciplin);
+            fh.saveMember(member);
             System.out.println(member.toString());
         } else {
             Member member = new Member(fullName, age, activeMembership);
+            fh.saveMember(member);
             System.out.println(member.toString());
         }
 
@@ -82,6 +86,7 @@ public class Controller {
     }
 
     private void seeMembers() {
+        System.out.println(fh.seeMembers());
     }
 
     private void topFive() {

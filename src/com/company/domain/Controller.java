@@ -17,20 +17,23 @@ public class Controller {
                     exit();
                     break;
                 case "1":
-                    login();
+                    createUser();
                     break;
                 case "2":
-                    createMember();
+                    login();
                     break;
                 case "3":
-                    changeToCompSwimmer();
+                    createMember();
+                    break;
                 case "4":
+                    changeToCompSwimmer();
+                case "5":
                     seeContingent();
                     break;
-                case "5":
+                case "6":
                     seeMembers();
                     break;
-                case "6":
+                case "7":
                     topFive();
                     break;
             }
@@ -39,7 +42,27 @@ public class Controller {
 
     //TODO lav oprettelse af user og gem til arrayList
     private void createUser() {
-
+        ui.printMessage("Indtast brugerens fulde navn:");
+        String fullName = ui.userInput();
+        ui.printMessage("""
+                Vælg venligst hvilken rolle brugeren har:
+                1) Formand
+                2) Kasserer
+                3) Træner""");
+        int choice = ui.userIntput();
+        if (choice == 1) {
+            User user = new User(fullName, User.Role.FORMAND);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        } else if (choice == 2) {
+            User user = new User(fullName, User.Role.KASSERER);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        } else if (choice == 3) {
+            User user = new User(fullName, User.Role.TRÆNER);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        }
     }
 
     //TODO lav login til user

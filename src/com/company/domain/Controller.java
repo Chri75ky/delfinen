@@ -23,7 +23,7 @@ public class Controller {
                     createMember();
                     break;
                 case "3":
-                    //changeToCompSwimmer();
+                    changeToCompSwimmer();
                 case "4":
                     seeContingent();
                     break;
@@ -41,6 +41,7 @@ public class Controller {
     private void login() {
     }
 
+    //metode til at oprette et medlem
     private void createMember() {
         //henter navn, alder, medlemskabstype
         ui.printMessage("Indtast personens fulde navn:");
@@ -58,28 +59,31 @@ public class Controller {
             activeMembership = true;
         }
 
-
-        //hvis medlemmet ønsker at være konkurrencesvømmer vil metoden oprette en ny konkurrencesvømmer
-        //ellers vil den bare oprette et almindeligt medlem
-        //TODO rykke denne del til en metode der laver en member om til konkurrencesvømmer
-        ui.printMessage("Ønsker medlemmet at være konkurrencesvømmer? (j/n)");
-        String input = ui.userInput();
-        if (input.equalsIgnoreCase("J")) {
-            ui.printMessage("Hvilken disciplin?");
-            String disciplin = ui.userInput();
-            CompSwimmer member = new CompSwimmer(fullName, age, activeMembership, disciplin);
-            fh.saveMember(member);
-            System.out.println(member.toString());
-        } else {
             Member member = new Member(fullName, age, activeMembership);
             fh.saveMember(member);
-            System.out.println(member.toString());
-        }
+            ui.printMessage(member.toString());
 
     }
 
-    private void changeToCompSwimmer(Member member) {
-
+    //metode til at lave et almindeligt medlem om til en konkurrencesvømmer
+    private void changeToCompSwimmer() {
+        ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n");
+        String input = ui.userInput();
+        if (input.equalsIgnoreCase("J")) {
+            ui.printMessage("Indtast navnet på medlemmet du gerne vil konvertere til konkurrencesvømmer:");
+            String memberName = ui.userInput();
+            Member member = fh.findMember(memberName);
+            if (member == null) {
+                ui.printMessage("Personen eksisterer ikke i databasen.");
+            } else {
+                ui.printMessage("Vælg disciplin:");
+                String disciplin = ui.userInput();
+                CompSwimmer newMember = new CompSwimmer(member.fullName,member.age,member.activeMembership,disciplin);
+                fh.saveMember(newMember);
+                fh.deleteMember(member);
+                ui.printMessage(newMember.toString());
+            }
+        }
     }
 
     private void seeContingent() {

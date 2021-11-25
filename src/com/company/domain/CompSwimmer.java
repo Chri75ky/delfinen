@@ -11,11 +11,11 @@ public class CompSwimmer extends Member{
     @Override
     public String toString() {
         return "CompSwimmer{" +
-                ", fullName='" + fullName + '\'' +
+                "FullName='" + fullName + '\'' +
                 ", age=" + age +
                 ", activeMembership=" + activeMembership +
                 ", team='" + team + '\'' +
-                "discipline='" + discipline + '\'' +
+                ", discipline='" + discipline + '\'' +
                 '}';
     }
 }

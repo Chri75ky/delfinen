@@ -3,20 +3,41 @@ package com.company.database;
 import com.company.domain.Member;
 import com.company.domain.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileHandler {
     ArrayList<Member> members = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
+
+    // Tilføjer et medlem til en liste ude fra programmet
+    public void addMemberToFile(Member member) throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("MemberList.txt", true));
+        Scanner out = new Scanner("MemberList.txt");
+
+
+        while (out.hasNextLine()) {
+            out.nextLine();
+        }
+
+        // Tilføjer medlemmet til "MemberList.txt"
+        ps.append("Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivmedlemsskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam());
+
+        //TODO Fjern medlemmet fra arraylisten?
+    }
 
 
     //--------------------------------------------------------------
     //MEMBERS
     //--------------------------------------------------------------
     //tilføjer medlem til arrayList
-    public void saveMember(Member member) {
+    public void saveMember(Member member) throws FileNotFoundException {
         members.add(member);
+        addMemberToFile(member);
     }
 
     //printer arrayList ud

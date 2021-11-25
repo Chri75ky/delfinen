@@ -39,6 +39,16 @@ public class Controller {
 
 
     private void login() {
+        ui.printMessage("Type in user name: ");
+        String name = ui.userInput();
+        ui.printMessage("Type in password: ");
+        String password = ui.userInput();
+        User user = fh.findUser(name);
+        if(user != null){
+            ui.printMessage("Welcome user" + name + " " +  user.getRole());
+        } else {
+            ui.printMessage("User not found");
+        }
     }
 
     //metode til at oprette et medlem

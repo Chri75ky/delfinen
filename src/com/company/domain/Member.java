@@ -45,11 +45,6 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "fullName='" + fullName + '\'' +
-                ", age=" + age +
-                ", activeMembership=" + activeMembership +
-                ", team='" + team + '\'' +
-                '}';
+        return "Medlem: " + fullName + "\n" + "Alder: " + age + "\n" + "Aktivt medlemskab: " + activeMembership + "\n" + "Hold: " + team;
     }
 }

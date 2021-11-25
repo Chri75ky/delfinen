@@ -57,6 +57,7 @@ public class Controller {
                 2) Kasserer
                 3) Træner""");
         int choice = ui.userIntput();
+        ui.userInput();
         if (choice == 1) {
             User user = new User(fullName, User.Role.FORMAND);
             fh.saveUser(user);

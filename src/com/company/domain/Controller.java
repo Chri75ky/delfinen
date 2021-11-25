@@ -24,14 +24,19 @@ public class Controller {
                     break;
                 case "3":
                     changeToCompSwimmer();
+                    break;
                 case "4":
-                    seeContingent();
+                    cashierMenu();
                     break;
                 case "5":
                     seeMembers();
                     break;
                 case "6":
                     topFive();
+                    break;
+
+                default:
+                    ui.userInputNotValid();
                     break;
             }
         }
@@ -86,7 +91,41 @@ public class Controller {
         }
     }
 
-    private void seeContingent() {
+    private void cashierMenu() {
+        boolean run = true;
+        while (run) {
+            ui.cashierMenu();
+            String userInput = ui.userInput();
+            switch (userInput) {
+                case "0":
+                    start();
+                    break;
+                case "1":
+                    //Se forventet indbetaling
+
+                    break;
+
+                case "2":
+                    //Sæt medlem i restance
+
+                    break;
+
+                case "3":
+                    //Se medlemmer i restance
+
+                    break;
+
+                case "4":
+                    //Medlem betalt for restance/kontigent
+
+                    break;
+
+
+                default:
+                    ui.userInputNotValid();
+                    break;
+            }
+        }
     }
 
     private void seeMembers() {

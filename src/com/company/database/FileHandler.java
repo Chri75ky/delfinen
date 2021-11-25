@@ -11,8 +11,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileHandler {
-    ArrayList<Member> members = new ArrayList<>();
-    ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
+
+
+
+
+    //--------------------------------------------------------------
+    //MEMBERS
+    //--------------------------------------------------------------
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMemberToFile(Member member) throws FileNotFoundException {
@@ -25,15 +32,11 @@ public class FileHandler {
         }
 
         // Tilføjer medlemmet til "MemberList.txt"
-        ps.append("Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivmedlemsskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam());
+        ps.append("\n" + "Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivt medlemskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam() + "\n");
 
         //TODO Fjern medlemmet fra arraylisten?
     }
 
-
-    //--------------------------------------------------------------
-    //MEMBERS
-    //--------------------------------------------------------------
     //tilføjer medlem til arrayList
     public void saveMember(Member member) throws FileNotFoundException {
         members.add(member);

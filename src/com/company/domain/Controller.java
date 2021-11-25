@@ -48,7 +48,7 @@ public class Controller {
     }
 
     //TODO lav oprettelse af user og gem til arrayList
-    private void createUser() {
+    private void createUser() throws FileNotFoundException {
         ui.printMessage("Indtast brugerens fulde navn:");
         String fullName = ui.userInput();
         ui.printMessage("""

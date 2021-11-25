@@ -69,9 +69,25 @@ public class FileHandler {
     //USERS
     //--------------------------------------------------------------
 
+    public void addUserToFile(User user) throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("UserList.txt", true));
+        Scanner out = new Scanner("UserList.txt");
+
+
+        while (out.hasNextLine()) {
+            out.nextLine();
+        }
+
+        // Tilføjer user til "UserList.txt"
+        ps.append("\n" + "Navn: " + user.getFullName() + "\n" + "Rolle: " + user.getRole() + "\n");
+
+        //TODO Fjern user fra arraylist?
+    }
+
     //tilføjer en bruger til arrayListen users
-    public void saveUser(User user) {
+    public void saveUser(User user) throws FileNotFoundException {
         users.add(user);
+        addUserToFile(user);
     }
 
     //sletter user fra arrayList users

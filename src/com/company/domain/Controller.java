@@ -75,7 +75,14 @@ public class Controller {
 
     //TODO lav login til user
     private void login() {
-
+        ui.printMessage("Type in user name: ");
+        String name = ui.userInput();
+        User user = fh.findUser(name);
+        if(user != null){
+            ui.printMessage("Velkommen " + user.getRole() + " " + name);
+        } else {
+            ui.printMessage("User not found");
+        }
     }
 
     //metode til at oprette et medlem

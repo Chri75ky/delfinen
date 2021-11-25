@@ -63,6 +63,8 @@ public class FileHandler {
         members.remove(member);
     }
 
+
+    //TODO måske merge user metoderne med members metoderne, da de begge gør stort set de samme ting, bare til forskellige arrayLister
     //--------------------------------------------------------------
     //USERS
     //--------------------------------------------------------------

@@ -123,7 +123,7 @@ public class Controller {
         }
     }
 
-    private void cashierMenu() {
+    private void cashierMenu() throws FileNotFoundException {
         boolean run = true;
         while (run) {
             ui.cashierMenu();

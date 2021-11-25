@@ -3,12 +3,14 @@ package com.company.domain;
 import com.company.database.FileHandler;
 import com.company.ui.UserInterface;
 
+import java.io.FileNotFoundException;
+
 public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
 
-    public void start() {
+    public void start() throws FileNotFoundException {
         while (isRunning) {
             ui.menu();
             String userInput = ui.userInput();
@@ -76,7 +78,7 @@ public class Controller {
     }
 
     //metode til at oprette et medlem
-    private void createMember() {
+    private void createMember() throws FileNotFoundException {
         //henter navn, alder, medlemskabstype
         ui.printMessage("Indtast personens fulde navn:");
         String fullName = ui.userInput();
@@ -100,7 +102,7 @@ public class Controller {
     }
 
     //metode til at lave et almindeligt medlem om til en konkurrencesvømmer
-    private void changeToCompSwimmer() {
+    private void changeToCompSwimmer() throws FileNotFoundException {
         ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n");
         String input = ui.userInput();
         if (input.equalsIgnoreCase("J")) {
@@ -114,6 +116,7 @@ public class Controller {
                 String disciplin = ui.userInput();
                 CompSwimmer newMember = new CompSwimmer(member.fullName,member.age,member.activeMembership,disciplin);
                 fh.saveMember(newMember);
+                fh.addMemberToFile(newMember);
                 fh.deleteMember(member);
                 ui.printMessage(newMember.toString());
             }

@@ -37,8 +37,14 @@ public class Controller {
         }
     }
 
+    //TODO lav oprettelse af user og gem til arrayList
+    private void createUser() {
 
+    }
+
+    //TODO lav login til user
     private void login() {
+
     }
 
     //metode til at oprette et medlem

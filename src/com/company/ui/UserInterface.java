@@ -10,12 +10,26 @@ public class UserInterface {
                 (0) Luk programmet
                 (1) Opret bruger
                 (2) Log ind
-                (3) Opret bruger
+                (3) Opret medlem
                 (4) Skift til konkurrencesvømmer
-                (5) Se forventet kontingent
+                (5) Gå til kassere menu
                 (6) Se medlemmer
                 (7) Se top 5""");
     }
+
+    public void cashierMenu() {
+        printMessage("""
+                (0) Gå tilbage til hovedmenuen
+                (1) Se forventet indbetaling af medlemmers kontigent
+                (2) Sæt medlem i restance
+                (3) Se medlemmer i restance
+                (4) Medlem betalt for kontigent/restance""");
+    }
+
+    public void userInputNotValid() {
+        System.out.println("Userinput not valid...\n");
+    }
+
     public String userInput(){
         return scanner.nextLine();
     }

@@ -3,20 +3,44 @@ package com.company.database;
 import com.company.domain.Member;
 import com.company.domain.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileHandler {
-    ArrayList<Member> members = new ArrayList<>();
-    ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
+
+
 
 
     //--------------------------------------------------------------
     //MEMBERS
     //--------------------------------------------------------------
+
+    // Tilføjer et medlem til en liste ude fra programmet
+    public void addMemberToFile(Member member) throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("MemberList.txt", true));
+        Scanner out = new Scanner("MemberList.txt");
+
+
+        while (out.hasNextLine()) {
+            out.nextLine();
+        }
+
+        // Tilføjer medlemmet til "MemberList.txt"
+        ps.append("\n" + "Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivt medlemskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam() + "\n");
+
+        //TODO Fjern medlemmet fra arraylisten?
+    }
+
     //tilføjer medlem til arrayList
-    public void saveMember(Member member) {
+    public void saveMember(Member member) throws FileNotFoundException {
         members.add(member);
+        addMemberToFile(member);
     }
 
     //printer arrayList ud
@@ -39,13 +63,31 @@ public class FileHandler {
         members.remove(member);
     }
 
+
+    //TODO måske merge user metoderne med members metoderne, da de begge gør stort set de samme ting, bare til forskellige arrayLister
     //--------------------------------------------------------------
     //USERS
     //--------------------------------------------------------------
 
+    public void addUserToFile(User user) throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("UserList.txt", true));
+        Scanner out = new Scanner("UserList.txt");
+
+
+        while (out.hasNextLine()) {
+            out.nextLine();
+        }
+
+        // Tilføjer user til "UserList.txt"
+        ps.append("\n" + "Navn: " + user.getFullName() + "\n" + "Rolle: " + user.getRole() + "\n");
+
+        //TODO Fjern user fra arraylist?
+    }
+
     //tilføjer en bruger til arrayListen users
-    public void saveUser(User user) {
+    public void saveUser(User user) throws FileNotFoundException {
         users.add(user);
+        addUserToFile(user);
     }
 
     //sletter user fra arrayList users

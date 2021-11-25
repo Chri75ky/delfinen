@@ -8,12 +8,13 @@ public class UserInterface {
     public void menu(){
         printMessage("""
                 (0) Luk programmet
-                (1) Log ind
-                (2) Opret bruger
-                (3) Skift til konkurrencesvømmer
-                (4) Gå til kassere menu
-                (5) Se medlemmer
-                (6) Se top 5""");
+                (1) Opret bruger
+                (2) Log ind
+                (3) Opret medlem
+                (4) Skift til konkurrencesvømmer
+                (5) Gå til kassere menu
+                (6) Se medlemmer
+                (7) Se top 5""");
     }
 
     public void cashierMenu() {

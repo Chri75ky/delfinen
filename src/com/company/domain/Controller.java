@@ -3,12 +3,14 @@ package com.company.domain;
 import com.company.database.FileHandler;
 import com.company.ui.UserInterface;
 
+import java.io.FileNotFoundException;
+
 public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
 
-    public void start() {
+    public void start() throws FileNotFoundException {
         while (isRunning) {
             ui.menu();
             String userInput = ui.userInput();
@@ -17,21 +19,24 @@ public class Controller {
                     exit();
                     break;
                 case "1":
-                    login();
+                    createUser();
                     break;
                 case "2":
-                    createMember();
+                    login();
                     break;
                 case "3":
-                    changeToCompSwimmer();
+                    createMember();
                     break;
                 case "4":
-                    cashierMenu();
+                    changeToCompSwimmer();
                     break;
                 case "5":
-                    seeMembers();
+                    cashierMenu();
                     break;
                 case "6":
+                    seeMembers();
+                    break;
+                case "7":
                     topFive();
                     break;
 
@@ -43,17 +48,45 @@ public class Controller {
     }
 
     //TODO lav oprettelse af user og gem til arrayList
-    private void createUser() {
-
+    private void createUser() throws FileNotFoundException {
+        ui.printMessage("Indtast brugerens fulde navn:");
+        String fullName = ui.userInput();
+        ui.printMessage("""
+                Vælg venligst hvilken rolle brugeren har:
+                1) Formand
+                2) Kasserer
+                3) Træner""");
+        int choice = ui.userIntput();
+        ui.userInput();
+        if (choice == 1) {
+            User user = new User(fullName, User.Role.FORMAND);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        } else if (choice == 2) {
+            User user = new User(fullName, User.Role.KASSERER);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        } else if (choice == 3) {
+            User user = new User(fullName, User.Role.TRÆNER);
+            fh.saveUser(user);
+            ui.printMessage(user.toString());
+        }
     }
 
     //TODO lav login til user
     private void login() {
-
+        ui.printMessage("Type in user name: ");
+        String name = ui.userInput();
+        User user = fh.findUser(name);
+        if(user != null){
+            ui.printMessage("Velkommen " + user.getRole() + " " + name);
+        } else {
+            ui.printMessage("User not found");
+        }
     }
 
     //metode til at oprette et medlem
-    private void createMember() {
+    private void createMember() throws FileNotFoundException {
         //henter navn, alder, medlemskabstype
         ui.printMessage("Indtast personens fulde navn:");
         String fullName = ui.userInput();
@@ -77,7 +110,7 @@ public class Controller {
     }
 
     //metode til at lave et almindeligt medlem om til en konkurrencesvømmer
-    private void changeToCompSwimmer() {
+    private void changeToCompSwimmer() throws FileNotFoundException {
         ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n");
         String input = ui.userInput();
         if (input.equalsIgnoreCase("J")) {
@@ -91,13 +124,14 @@ public class Controller {
                 String disciplin = ui.userInput();
                 CompSwimmer newMember = new CompSwimmer(member.fullName,member.age,member.activeMembership,disciplin);
                 fh.saveMember(newMember);
+                fh.addMemberToFile(newMember);
                 fh.deleteMember(member);
                 ui.printMessage(newMember.toString());
             }
         }
     }
 
-    private void cashierMenu() {
+    private void cashierMenu() throws FileNotFoundException {
         boolean run = true;
 
         //DELETE

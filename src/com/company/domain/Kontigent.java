@@ -46,17 +46,19 @@ public class Kontigent {
         return restance;
     }
 
-
-
     public void changePriceToRestance() {
         this.restance = this.price;
         this.price = 0;
     }
 
-
-    public void payed() {
-        //Delete kontigent object when paid
+    public void restancePaid(int payment) {
+        this.restance -= payment;
     }
+
+    public void pricePaid(int payment) {
+        this.price -= payment;
+    }
+
 
     public String toString() {
         return "Price " + price + " ... Restance " + restance;

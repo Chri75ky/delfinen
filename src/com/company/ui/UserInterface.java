@@ -22,7 +22,8 @@ public class UserInterface {
                 (1) Se forventet indbetaling af medlemmers kontigent
                 (2) Sæt medlem i restance
                 (3) Se medlemmer i restance
-                (4) Medlem betalt for kontigent/restance""");
+                (4) Medlem betalt for kontigent/restance
+                (5) Tilføj kontigent til alle medlemmer""");
     }
 
     public void userInputNotValid() {

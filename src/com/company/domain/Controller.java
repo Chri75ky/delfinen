@@ -99,6 +99,14 @@ public class Controller {
 
     private void cashierMenu() {
         boolean run = true;
+
+        //DELETE
+        Member a = new Member("Sebastian Bjørner", 29, true);
+        fh.saveMember(a);
+        Member b = new Member("Sebastian AAA", 17, true);
+        fh.saveMember(b);
+
+
         while (run) {
             ui.cashierMenu();
             String userInput = ui.userInput();
@@ -106,26 +114,31 @@ public class Controller {
                 case "0":
                     start();
                     break;
-                case "1":
-                    //Se forventet indbetaling
 
+                case "1":
+                    //Se forventet samlet indbetaling i kontigent
+                    System.out.println("Det forventede samlede indbetaling i kontigent: " + fh.getTotalContigent() + " DKK\n");
                     break;
 
                 case "2":
-                    //Sæt medlem i restance
-
+                    //Ændre medlem fra manglende kontigentbetaling til restance
+                    changeMemberContigentToRestance();
                     break;
 
                 case "3":
                     //Se medlemmer i restance
+                    System.out.println(fh.seeMembersWithRestance());
 
                     break;
 
                 case "4":
                     //Medlem betalt for restance/kontigent
-
+                    memberPayed();
                     break;
 
+                case "5":
+                    //TODO Opret nyt kontigent for alle medlemmer/tilføj til kontigent
+                    break;
 
                 default:
                     ui.userInputNotValid();
@@ -144,4 +157,24 @@ public class Controller {
     public void exit() {
         isRunning = false;
     }
+
+    public void changeMemberContigentToRestance() {
+        System.out.print(fh.seeMembersWithContigent());
+        System.out.print("\nHvilket medlem skal sættes i Restance? ");
+        int input = ui.userIntput()-1;
+        ui.userInput();
+        fh.changeMemberFromContigentToRestance(input);
+    }
+
+    public void memberPayed() {
+        System.out.print(fh.seeMembersWithContigentAndRestance());
+        System.out.print("\nHvilket medlem har betalt? ");
+        int member = ui.userIntput()-1;
+        ui.userInput();
+        System.out.println("Hvor meget har medlemmet betalt? ");
+        int payment = ui.userIntput();
+        ui.userInput();
+        fh.memberPayedForContigentOrRestance(member, payment);
+    }
+
 }

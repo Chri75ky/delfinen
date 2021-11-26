@@ -73,7 +73,7 @@ public class Controller {
         }
     }
 
-    //TODO lav login til user
+
     private void login() {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
@@ -181,8 +181,9 @@ public class Controller {
         }
     }
 
-    private void seeMembers() {
-        System.out.println(fh.seeMembers());
+    private void seeMembers() throws FileNotFoundException {
+        StringBuilder members = fh.showMembersFromFile();
+        System.out.print(members);
     }
 
     private void topFive() {

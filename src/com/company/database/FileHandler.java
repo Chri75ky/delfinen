@@ -3,6 +3,7 @@ package com.company.database;
 import com.company.domain.Member;
 import com.company.domain.User;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -43,9 +44,20 @@ public class FileHandler {
         addMemberToFile(member);
     }
 
+    //TODO gør at den printer medlemmerne ud fra filen.
     //printer arrayList ud
     public String seeMembers() {
         return members.toString();
+    }
+
+    public StringBuilder showMembersFromFile() throws FileNotFoundException {
+        Scanner members = new Scanner(new File("MemberList.txt"));
+        StringBuilder allMembers = new StringBuilder();
+
+        while (members.hasNextLine()) {
+            allMembers.append(members.nextLine() + "\n");
+        }
+        return allMembers;
     }
 
     //finder et medlem i listen ved brug af navnet, returnerer et medlem
@@ -105,6 +117,7 @@ public class FileHandler {
         return null;
     }
 
+    //TODO lav at den henter users fra filen
     //printer arrayList ud
     public String seeUsers() {
         return users.toString();

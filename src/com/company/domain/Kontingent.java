@@ -1,21 +1,21 @@
 package com.company.domain;
 
-public class Kontigent {
+public class Kontingent {
     //'Price' used for instant payment, otherwise turn to restance if not paid.
     private int price;
     private int restance = 0;
 
-    public Kontigent() {
+    public Kontingent() {
 
     }
 
     public void setKontigent (int age, boolean membershipStatus) {
         if (membershipStatus == false) {
-            // Passivt medlemsskab
+            // Passivt medlemskab
             setPrice(500);
         } else {
             if (age >= 18) {
-                // Aktivt medlemsskab over/eller 18 år
+                // Aktivt medlemskab over/eller 18 år
                 if (age > 60) {
                     int discount = 25;
                     setPrice(1600, discount);
@@ -24,7 +24,7 @@ public class Kontigent {
                 }
 
             } else {
-                // Aktivt medlemsskab under 18
+                // Aktivt medlemskab under 18
                 setPrice(1000);
             }
         }

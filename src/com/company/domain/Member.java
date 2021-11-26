@@ -6,7 +6,7 @@ public class Member {
     protected int age;
     protected boolean activeMembership;
     protected String team;
-    private Kontigent kontigent = new Kontigent();
+    private Kontingent kontingent = new Kontingent();
 
     public Member(String fullName, int age, boolean activeMembership) {
         this.fullName = fullName;
@@ -35,12 +35,12 @@ public class Member {
         return team;
     }
 
-    public Kontigent getKontigent() {
-        return this.kontigent;
+    public Kontingent getKontigent() {
+        return this.kontingent;
     }
 
     public void makeKontigent() {
-        this.kontigent.setKontigent(this.age, this.activeMembership);
+        this.kontingent.setKontigent(this.age, this.activeMembership);
     }
 
     @Override

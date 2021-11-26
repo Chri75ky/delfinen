@@ -4,13 +4,14 @@ import com.company.database.FileHandler;
 import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
 
-    public void start() throws FileNotFoundException {
+    public void start() throws IOException {
         while (isRunning) {
             ui.menu();
             String userInput = ui.userInput();
@@ -74,7 +75,7 @@ public class Controller {
     }
 
 
-    private void login() {
+    private void login() throws IOException {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
         User user = fh.findUser(name);
@@ -131,7 +132,7 @@ public class Controller {
         }
     }
 
-    private void cashierMenu() throws FileNotFoundException {
+    private void cashierMenu() throws IOException {
         boolean run = true;
 
         //DELETE
@@ -184,6 +185,11 @@ public class Controller {
     private void seeMembers() throws FileNotFoundException {
         StringBuilder members = fh.showMembersFromFile();
         System.out.print(members);
+    }
+
+    private void seeUsers() throws FileNotFoundException {
+        StringBuilder users = fh.showUsersFromFile();
+        System.out.print(users);
     }
 
     private void topFive() {

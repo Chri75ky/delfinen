@@ -3,10 +3,7 @@ package com.company.database;
 import com.company.domain.Member;
 import com.company.domain.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -107,20 +104,51 @@ public class FileHandler {
         users.remove(user);
     }
 
+
+    //TODO INPROGRESS prøver at lave sådan at den kan finde brugeren direkte fra textfilen
     //finder en bruger i brugerListen, ved brug af navn
-    public User findUser(String userName) {
-        for (int i = 0; i < users.size(); i++) {
+    public User findUser(String userName) throws IOException {
+       /* for (int i = 0; i < users.size(); i++) {
             if (userName.equalsIgnoreCase(users.get(i).getFullName())) {
                 return users.get(i);
             } else return null;
         }
-        return null;
+        return null;*/
+        File f1 = new File("UserList.txt");
+        String[] words = null;
+        FileReader fr = new FileReader(f1);
+        BufferedReader br = new BufferedReader(fr);
+        String s;
+        String input = userName;
+        int count = 0;
+        while ((s = br.readLine()) != null) {
+            words = s.split(" ");
+            for (String word : words) {
+                if (word.equalsIgnoreCase(input)) {
+                    count++;
+                }
+            }
+        }
+        if (count != 0) {
+            System.out.println("Logged in");
+        } else
+            return null;
     }
 
     //TODO lav at den henter users fra filen
     //printer arrayList ud
     public String seeUsers() {
         return users.toString();
+    }
+
+    public StringBuilder showUsersFromFile() throws FileNotFoundException {
+        Scanner users = new Scanner(new File("UserList.txt"));
+        StringBuilder allUsers = new StringBuilder();
+
+        while (users.hasNextLine()) {
+            allUsers.append(users.nextLine() + "\n");
+        }
+        return allUsers;
     }
 
 

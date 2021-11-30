@@ -3,3 +3,8 @@ Navn: Christian
 Alder: 0
 Aktivt medlemskab: true
 Hold: Junior
+
+Navn: Sebastian Bue Bjørner
+Alder: 28
+Aktivt medlemskab: true
+Hold: Senior

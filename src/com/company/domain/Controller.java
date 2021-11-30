@@ -130,8 +130,6 @@ public class Controller {
                 String disciplin = ui.userInput();
                 CompSwimmer newMember = new CompSwimmer(member.getFullName(),member.getAge(),member.getMembershipStatus(),disciplin);
                 m.saveMember(newMember);
-                m.addMemberToFile(newMember);
-                m.deleteMember(member);
                 ui.printMessage(newMember.toString());
             }
         }
@@ -200,7 +198,8 @@ public class Controller {
     private void topFive() {
     }
 
-    public void exit() {
+    public void exit() throws FileNotFoundException {
+        m.addMembersToFile();
         isRunning = false;
     }
 

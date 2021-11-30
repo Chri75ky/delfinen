@@ -1,6 +1,6 @@
 package com.company.database;
 
-import com.company.domain.Member;
+import com.company.domain.Member.Member;
 import com.company.domain.User;
 
 import java.io.*;
@@ -9,68 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileHandler {
-    private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
-
-
-
-
-    //--------------------------------------------------------------
-    //MEMBERS
-    //--------------------------------------------------------------
-
-    // Tilføjer et medlem til en liste ude fra programmet
-    public void addMemberToFile(Member member) throws FileNotFoundException {
-        PrintStream ps = new PrintStream(new FileOutputStream("MemberList.txt", true));
-        Scanner out = new Scanner("MemberList.txt");
-
-
-        while (out.hasNextLine()) {
-            out.nextLine();
-        }
-
-        // Tilføjer medlemmet til "MemberList.txt"
-        ps.append("\n" + "Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivt medlemskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam() + "\n");
-
-        //TODO Fjern medlemmet fra arraylisten?
-    }
-
-    //tilføjer medlem til arrayList
-    public void saveMember(Member member) throws FileNotFoundException {
-        members.add(member);
-        addMemberToFile(member);
-    }
-
-    //TODO gør at den printer medlemmerne ud fra filen.
-    //printer arrayList ud
-    public String seeMembers() {
-        return members.toString();
-    }
-
-    public StringBuilder showMembersFromFile() throws FileNotFoundException {
-        Scanner members = new Scanner(new File("MemberList.txt"));
-        StringBuilder allMembers = new StringBuilder();
-
-        while (members.hasNextLine()) {
-            allMembers.append(members.nextLine() + "\n");
-        }
-        return allMembers;
-    }
-
-    //finder et medlem i listen ved brug af navnet, returnerer et medlem
-    public Member findMember(String memberName) {
-        for (int i = 0; i < members.size(); i++) {
-            if (memberName.equalsIgnoreCase(members.get(i).getFullName())) {
-                return members.get(i);
-            } else return null;
-        }
-        return null;
-    }
-
-    //sletter medlem fra arrayList members
-    public void deleteMember(Member member) {
-        members.remove(member);
-    }
 
 
     //TODO måske merge user metoderne med members metoderne, da de begge gør stort set de samme ting, bare til forskellige arrayLister
@@ -114,25 +53,8 @@ public class FileHandler {
             } else return null;
         }
         return null;*/
-        File f1 = new File("UserList.txt");
-        String[] words = null;
-        FileReader fr = new FileReader(f1);
-        BufferedReader br = new BufferedReader(fr);
-        String s;
-        String input = userName;
-        int count = 0;
-        while ((s = br.readLine()) != null) {
-            words = s.split(" ");
-            for (String word : words) {
-                if (word.equalsIgnoreCase(input)) {
-                    count++;
-                }
-            }
-        }
-        if (count != 0) {
-            System.out.println("Logged in");
-        } else
-            return null;
+
+        return null;
     }
 
     //TODO lav at den henter users fra filen

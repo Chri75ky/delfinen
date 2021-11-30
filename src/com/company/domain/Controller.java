@@ -1,6 +1,8 @@
 package com.company.domain;
 
 import com.company.database.FileHandler;
+import com.company.domain.Member.CompSwimmer;
+import com.company.domain.Member.Member;
 import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
@@ -10,6 +12,8 @@ public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
+    private Member m = new Member(null, 0, false);
+
 
     public void start() throws IOException {
         while (isRunning) {
@@ -105,7 +109,7 @@ public class Controller {
         }
 
             Member member = new Member(fullName, age, activeMembership);
-            fh.saveMember(member);
+            m.saveMember(member);
             ui.printMessage(member.toString());
 
     }
@@ -117,16 +121,16 @@ public class Controller {
         if (input.equalsIgnoreCase("J")) {
             ui.printMessage("Indtast navnet på medlemmet du gerne vil konvertere til konkurrencesvømmer:");
             String memberName = ui.userInput();
-            Member member = fh.findMember(memberName);
+            Member member = m.findMember(memberName);
             if (member == null) {
                 ui.printMessage("Personen eksisterer ikke i databasen.");
             } else {
                 ui.printMessage("Vælg disciplin:");
                 String disciplin = ui.userInput();
                 CompSwimmer newMember = new CompSwimmer(member.fullName,member.age,member.activeMembership,disciplin);
-                fh.saveMember(newMember);
-                fh.addMemberToFile(newMember);
-                fh.deleteMember(member);
+                m.saveMember(newMember);
+                m.addMemberToFile(newMember);
+                m.deleteMember(member);
                 ui.printMessage(newMember.toString());
             }
         }
@@ -137,9 +141,9 @@ public class Controller {
 
         //DELETE
         Member a = new Member("Sebastian Bjørner", 29, true);
-        fh.saveMember(a);
+        m.saveMember(a);
         Member b = new Member("Sebastian AAA", 17, true);
-        fh.saveMember(b);
+        m.saveMember(b);
 
 
         while (run) {
@@ -183,8 +187,8 @@ public class Controller {
     }
 
     private void seeMembers() throws FileNotFoundException {
-        StringBuilder members = fh.showMembersFromFile();
-        System.out.print(members);
+        //StringBuilder members = showMembersFromFile();
+        //System.out.print(members);
     }
 
     private void seeUsers() throws FileNotFoundException {

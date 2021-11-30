@@ -1,6 +1,8 @@
-package com.company.domain;
+package com.company.domain.Member;
 
-public class CompSwimmer extends Member{
+import com.company.domain.Member.Member;
+
+public class CompSwimmer extends Member {
     private String discipline;
 
     public CompSwimmer(String fullName, int age, boolean activeMembership, String discipline) {

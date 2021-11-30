@@ -3,6 +3,7 @@ package com.company.domain;
 import com.company.database.FileHandler;
 import com.company.domain.Member.CompSwimmer;
 import com.company.domain.Member.Member;
+import com.company.domain.Member.MemberController;
 import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ public class Controller {
     boolean isRunning = true;
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
-    private Member m = new Member(null, 0, false);
+    private MemberController m = new MemberController();
 
 
     public void start() throws IOException {
@@ -127,7 +128,7 @@ public class Controller {
             } else {
                 ui.printMessage("Vælg disciplin:");
                 String disciplin = ui.userInput();
-                CompSwimmer newMember = new CompSwimmer(member.fullName,member.age,member.activeMembership,disciplin);
+                CompSwimmer newMember = new CompSwimmer(member.getFullName(),member.getAge(),member.getMembershipStatus(),disciplin);
                 m.saveMember(newMember);
                 m.addMemberToFile(newMember);
                 m.deleteMember(member);
@@ -156,7 +157,7 @@ public class Controller {
 
                 case "1":
                     //Se forventet samlet indbetaling i kontigent
-                    System.out.println("Det forventede samlede indbetaling i kontigent: " + fh.getTotalContigent() + " DKK\n");
+                    System.out.println("Det forventede samlede indbetaling i kontigent: " + m.getTotalContigent() + " DKK\n");
                     break;
 
                 case "2":
@@ -166,7 +167,7 @@ public class Controller {
 
                 case "3":
                     //Se medlemmer i restance
-                    System.out.println(fh.seeMembersWithRestance());
+                    System.out.println(m.seeMembersWithRestance());
 
                     break;
 
@@ -204,22 +205,22 @@ public class Controller {
     }
 
     public void changeMemberContigentToRestance() {
-        System.out.print(fh.seeMembersWithContigent());
+        System.out.print(m.seeMembersWithContigent());
         System.out.print("\nHvilket medlem skal sættes i Restance? ");
         int input = ui.userIntput()-1;
         ui.userInput();
-        fh.changeMemberFromContigentToRestance(input);
+        m.changeMemberFromContigentToRestance(input);
     }
 
     public void memberPayed() {
-        System.out.print(fh.seeMembersWithContigentAndRestance());
+        System.out.print(m.seeMembersWithContigentAndRestance());
         System.out.print("\nHvilket medlem har betalt? ");
         int member = ui.userIntput()-1;
         ui.userInput();
         System.out.println("Hvor meget har medlemmet betalt? ");
         int payment = ui.userIntput();
         ui.userInput();
-        fh.memberPayedForContigentOrRestance(member, payment);
+        m.memberPayedForContigentOrRestance(member, payment);
     }
 
 }

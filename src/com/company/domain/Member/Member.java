@@ -11,6 +11,7 @@ public class Member {
     protected String team;
     private Kontingent kontingent = new Kontingent();
 
+    //konstruktør
     public Member(String fullName, int age, boolean activeMembership) {
         this.fullName = fullName;
         this.age = age;
@@ -22,13 +23,6 @@ public class Member {
         makeKontigent();
     }
 
-    public String toCSV() {
-        return  fullName + ";"+
-                age + ";"+
-                activeMembership + ";" +
-                team;
-    }
-
     //CSV konstruktør
     public Member(String CSV) {
         String[] elements = CSV.split(";");
@@ -37,6 +31,13 @@ public class Member {
         this.age = Integer.parseInt(elements[1]);
         this.activeMembership = Boolean.parseBoolean(elements[2]);
         this.team = elements[3];
+    }
+
+    public String toCSV() {
+        return  fullName + ";" +
+                age + ";" +
+                activeMembership + ";" +
+                team;
     }
 
     //Getters

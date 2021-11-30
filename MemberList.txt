@@ -1,5 +1,0 @@
-
-Navn: Christian
-Alder: 0
-Aktivt medlemskab: true
-Hold: Junior

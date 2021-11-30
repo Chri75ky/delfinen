@@ -47,17 +47,17 @@ public class MemberController {
     }
 
     // Tilføjer et medlem til en liste ude fra programmet
-    public void addMemberToFile(Member member) throws FileNotFoundException {
-        PrintStream ps = new PrintStream(new FileOutputStream("MemberList.txt", true));
-        Scanner out = new Scanner("MemberList.txt");
+    public void addMembersToFile() throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("Medlemmer.csv", true));
+        Scanner out = new Scanner("Medlemmer.csv");
 
 
         while (out.hasNextLine()) {
             out.nextLine();
         }
 
-        // Tilføjer medlemmet til "MemberList.txt"
-        ps.append("\n" + "Navn: " + member.getFullName() + "\n" + "Alder: " + member.getAge() + "\n" + "Aktivt medlemskab: " + member.getMembershipStatus() + "\n" + "Hold: " + member.getTeam() + "\n");
+        // Tilføjer medlemmet til filen
+        ps.append(toCSV());
 
         //TODO Fjern medlemmet fra arraylisten?
     }
@@ -65,7 +65,6 @@ public class MemberController {
     //tilføjer medlem til arrayList
     public void saveMember(Member member) throws FileNotFoundException {
         members.add(member);
-        addMemberToFile(member);
     }
 
     //TODO gør at den printer medlemmerne ud fra filen.

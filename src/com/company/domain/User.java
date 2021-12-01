@@ -25,8 +25,6 @@ public class User {
         return  fullName + ";" +
                 role;
     }
-    private final String fullName;
-    private final Role role;
 
     //---------------------------------
     public void addUserToFile(User user) throws FileNotFoundException {

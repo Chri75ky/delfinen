@@ -29,7 +29,7 @@ public class Member {
     }
 
     public String toCSV() {
-        return  fullName + ";" +
+        return fullName + ";" +
                 age + ";" +
                 activeMembership + ";" +
                 team;

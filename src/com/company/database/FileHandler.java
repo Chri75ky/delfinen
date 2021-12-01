@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileHandler {
-    private ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<User> users = new ArrayList<>();
 
 
     //TODO måske merge user metoderne med members metoderne, da de begge gør stort set de samme ting, bare til forskellige arrayLister
@@ -72,7 +72,7 @@ public class FileHandler {
         return allUsers;
     }
 
-    public void clearFile (String fileName) {
+    public void clearFile(String fileName) {
         try {
             FileWriter fw = new FileWriter(fileName, false);
             fw.close();

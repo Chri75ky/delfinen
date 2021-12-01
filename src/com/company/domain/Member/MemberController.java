@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MemberController {
-    private Member m = new Member(null, 0, true);
+    private final Member m = new Member(null, 0, true);
 
     public MemberController() {
 
     }
 
     //getting text from file
-    private ArrayList<Member> members = new ArrayList<>();
+    private final ArrayList<Member> members = new ArrayList<>();
 
     public List<Member> getMembers() {
         return members;
@@ -35,12 +35,12 @@ public class MemberController {
         return "Navn: " + m.fullName + ", Medlemstype: " + m.activeMembership + ", Hold: " + m.team;
     }
 
-    public void addMember (Member member){
+    public void addMember(Member member) {
         members.add(member);
     }
 
 
-    public void deleteMember(int memberIndex){
+    public void deleteMember(int memberIndex) {
         members.remove(members.get(memberIndex));
     }
 
@@ -76,9 +76,9 @@ public class MemberController {
         members.remove(member);
     }
 
-    public Member findMember(String name){
+    public Member findMember(String name) {
         for (Member member : members) {
-            if (member.getFullName().equals(name)){
+            if (member.getFullName().equals(name)) {
                 return member;
             }
         }
@@ -99,17 +99,21 @@ public class MemberController {
         Member member = members.get(memberIndex);
         return member.toString();
     }
+
     // Kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
     public void showMembersFromString() {
-        try(BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
             String str;
             while ((str = in.readLine()) != null) {
                 System.out.println(str);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("File Read Error");
         }
+    }
+
+    public void loadMembersFromFile() {
+
     }
 
 }

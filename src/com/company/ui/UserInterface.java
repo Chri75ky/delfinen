@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class UserInterface {
 
     Scanner scanner = new Scanner(System.in);
-    public void menu(){
+
+    public void menu() {
         printMessage("""
                 (0) Luk programmet
                 (1) Opret bruger
@@ -31,11 +32,11 @@ public class UserInterface {
         System.out.println("Userinput not valid...\n");
     }
 
-    public String userInput(){
+    public String userInput() {
         return scanner.nextLine();
     }
 
-    public int userIntput(){
+    public int userIntput() {
         return scanner.nextInt();
     }
 

@@ -4,8 +4,9 @@ import com.company.domain.Member.Member;
 import com.company.domain.User;
 
 public class CompSwimmer extends Member {
-    private String discipline;
+    private final String discipline;
     private User coach;
+
     public CompSwimmer(String fullName, int age, boolean activeMembership, String discipline) {
         super(fullName, age, activeMembership);
         this.discipline = discipline;

@@ -1,9 +1,9 @@
 package com.company.accounting;
 
 public class Kontingent {
-    private String memberName;
-    private int memberAge;
-    private boolean membershipStatus;
+    private final String memberName;
+    private final int memberAge;
+    private final boolean membershipStatus;
     private double price;
     private boolean isPaid;
     private boolean inRestance;

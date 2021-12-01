@@ -12,10 +12,10 @@ import java.io.IOException;
 
 public class Controller {
     boolean isRunning = true;
-    private UserInterface ui = new UserInterface();
-    private FileHandler fh = new FileHandler();
-    private MemberController m = new MemberController();
-    private MembershipFee membershipFee = new MembershipFee();
+    private final UserInterface ui = new UserInterface();
+    private final FileHandler fh = new FileHandler();
+    private final MemberController m = new MemberController();
+    private final MembershipFee membershipFee = new MembershipFee();
 
     public void start() throws IOException {
         while (isRunning) {
@@ -85,7 +85,7 @@ public class Controller {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
         User user = fh.findUser(name);
-        if(user != null){
+        if (user != null) {
             ui.printMessage("Velkommen " + user.getRole() + " " + name);
         } else {
             ui.printMessage("User not found");
@@ -110,9 +110,9 @@ public class Controller {
             activeMembership = true;
         }
 
-            Member member = new Member(fullName, age, activeMembership);
-            m.saveMember(member);
-            ui.printMessage(member.toString());
+        Member member = new Member(fullName, age, activeMembership);
+        m.saveMember(member);
+        ui.printMessage(member.toString());
 
     }
 
@@ -129,7 +129,7 @@ public class Controller {
             } else {
                 ui.printMessage("Vælg disciplin:");
                 String disciplin = ui.userInput();
-                CompSwimmer newMember = new CompSwimmer(member.getFullName(),member.getAge(),member.getMembershipStatus(),disciplin);
+                CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), disciplin);
                 m.saveMember(newMember);
                 ui.printMessage(newMember.toString());
             }

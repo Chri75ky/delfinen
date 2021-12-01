@@ -2,8 +2,8 @@ package com.company.domain;
 
 public class User {
 
-    private String fullName;
-    private Role role;
+    private final String fullName;
+    private final Role role;
 
     public String getFullName() {
         return fullName;
@@ -22,7 +22,7 @@ public class User {
     enum Role {
         FORMAND,
         KASSERER,
-        TRÆNER;
+        TRÆNER
     }
 
     @Override

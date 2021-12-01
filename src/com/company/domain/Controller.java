@@ -17,7 +17,6 @@ public class Controller {
     private MemberController m = new MemberController();
     private MembershipFee membershipFee = new MembershipFee();
 
-
     public void start() throws IOException {
         while (isRunning) {
             ui.menu();
@@ -141,12 +140,13 @@ public class Controller {
     private void cashierMenu() throws IOException {
         boolean run = true;
 
-
         while (run) {
             ui.cashierMenu();
             String userInput = ui.userInput();
+            System.out.println("Sss");
             switch (userInput) {
                 case "0":
+                    run = false;
                     start();
                     break;
 

@@ -12,10 +12,12 @@ import java.io.IOException;
 
 public class Controller {
     boolean isRunning = true;
+
     private final UserInterface ui = new UserInterface();
     private final FileHandler fh = new FileHandler();
     private final MemberController m = new MemberController();
     private final MembershipFee membershipFee = new MembershipFee();
+    private final User u = new User(null, User.Role.DEFAULT);
 
     public void start() throws IOException {
         while (isRunning) {
@@ -67,15 +69,15 @@ public class Controller {
         ui.userInput();
         if (choice == 1) {
             User user = new User(fullName, User.Role.FORMAND);
-            fh.saveUser(user);
+            u.saveUser(user);
             ui.printMessage(user.toString());
         } else if (choice == 2) {
             User user = new User(fullName, User.Role.KASSERER);
-            fh.saveUser(user);
+            u.saveUser(user);
             ui.printMessage(user.toString());
         } else if (choice == 3) {
             User user = new User(fullName, User.Role.TRÆNER);
-            fh.saveUser(user);
+            u.saveUser(user);
             ui.printMessage(user.toString());
         }
     }
@@ -84,8 +86,8 @@ public class Controller {
     private void login() throws IOException {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
-        User user = fh.findUser(name);
-        if (user != null) {
+        User user = u.findUser(name);
+        if(user != null){
             ui.printMessage("Velkommen " + user.getRole() + " " + name);
         } else {
             ui.printMessage("User not found");
@@ -187,7 +189,7 @@ public class Controller {
     }
 
     private void seeUsers() throws FileNotFoundException {
-        StringBuilder users = fh.showUsersFromFile();
+        StringBuilder users = u.showUsersFromFile();
         System.out.print(users);
     }
 

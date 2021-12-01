@@ -137,53 +137,6 @@ public class Controller {
         }
     }
 
-    /*
-
-    private void cashierMenu() throws IOException {
-        boolean run = true;
-
-
-        while (run) {
-            ui.cashierMenu();
-            String userInput = ui.userInput();
-            switch (userInput) {
-                case "0":
-                    start();
-                    break;
-
-                case "1":
-                    //Se forventet samlet indbetaling i kontigent
-                    System.out.println("Det forventede samlede indbetaling i kontigent: " + m.getTotalContigent() + " DKK\n");
-                    break;
-
-                case "2":
-                    //Ændre medlem fra manglende kontigentbetaling til restance
-                    changeMemberContigentToRestance();
-                    break;
-
-                case "3":
-                    //Se medlemmer i restance
-                    System.out.println(m.seeMembersWithRestance());
-
-                    break;
-
-                case "4":
-                    //Medlem betalt for restance/kontigent
-                    memberPayed();
-                    break;
-
-                case "5":
-                    //TODO Opret nyt kontigent for alle medlemmer/tilføj til kontigent
-                    break;
-
-                default:
-                    ui.userInputNotValid();
-                    break;
-            }
-        }
-    }
-
-     */
 
     private void cashierMenu() throws IOException {
         boolean run = true;
@@ -209,11 +162,11 @@ public class Controller {
 
                 case "3":
                     //Se medlemmer i restance
-                    //System.out.println(m.seeMembersWithRestance());
+                    seeMembersInRestance();
                     break;
 
                 case "4":
-                    //Medlem betalt for restance/kontigent
+                    //TODO Medlem betalt for restance/kontigent
                     //memberPayed();
                     break;
 
@@ -288,32 +241,14 @@ public class Controller {
         membershipFee.memberToRestance(nameOfMember);
     }
 
+    public void seeMembersInRestance() {
+        String membersInRestance = membershipFee.getMembersInRestance();
+        ui.printMessage(membersInRestance);
+    }
+
     public void yearlyExpectedKontingentFee() {
         int expectedKontingent = membershipFee.calculateExpectedKontingent();
         ui.printMessage("Det forventede kontigentindbetaling er " + expectedKontingent + " DKK årligt\n");
     }
-
-
-    /*
-    public void changeMemberContigentToRestance() {
-        System.out.print(m.seeMembersWithContigent());
-        System.out.print("\nHvilket medlem skal sættes i Restance? ");
-        int input = ui.userIntput()-1;
-        ui.userInput();
-        m.changeMemberFromContigentToRestance(input);
-    }
-
-    public void memberPayed() {
-        System.out.print(m.seeMembersWithContigentAndRestance());
-        System.out.print("\nHvilket medlem har betalt? ");
-        int member = ui.userIntput()-1;
-        ui.userInput();
-        System.out.println("Hvor meget har medlemmet betalt? ");
-        int payment = ui.userIntput();
-        ui.userInput();
-        m.memberPayedForContigentOrRestance(member, payment);
-    }
-
-     */
 
 }

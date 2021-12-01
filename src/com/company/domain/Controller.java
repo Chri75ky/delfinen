@@ -168,13 +168,17 @@ public class Controller {
 
                 case "4":
                     //TODO Medlem betalt for restance/kontigent
-                    //TODO lav ekstra case med at slette alle betalte regninger fra systemet
                     //memberPayed();
                     break;
 
                 case "5":
                     //Se det årlige forventede kontigentindbetaling
                     yearlyExpectedKontingentFee();
+                    break;
+
+                case "6":
+                    //Slet alle betalte kontigent og restance regninger fra systemet
+                    deleteAllPaidKontingentsAndRestance();
                     break;
 
                 default:
@@ -277,4 +281,15 @@ public class Controller {
         int expectedKontingent = membershipFee.calculateExpectedKontingent();
         ui.printMessage("Det forventede kontigentindbetaling er " + expectedKontingent + " DKK årligt\n");
     }
+
+    public void deleteAllPaidKontingentsAndRestance() {
+
+        if (membershipFee.checkKontingentsForPaid() == true) {
+            membershipFee.deleteAllPaidKontingentsAndRestanceInFile();
+            ui.printMessage("De betalte kontigent eller restance regninger er fjernet fra systemet\n");
+        } else {
+            ui.printMessage("Der er ingen betalte kontigent eller restance regninger i systemet\n");
+        }
+    }
+
 }

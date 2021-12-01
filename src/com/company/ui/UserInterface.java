@@ -25,7 +25,8 @@ public class UserInterface {
                 (2) Sæt medlem i restance
                 (3) Se medlemmer i restance
                 (4) Medlem betalt for kontigent eller restance
-                (5) Se det årlige forventede kontigentindbetaling""");
+                (5) Se det årlige forventede kontigentindbetaling
+                (6) Slet betalte kontigent- og restanceregninger fra systemet""");
     }
 
     public void userInputNotValid() {

@@ -161,6 +161,18 @@ public class MembershipFee {
         return str.toString();
     }
 
+    public void deleteAllPaidKontingentsAndRestanceInFile() {
+        List<Kontingent> allKontingents = getAllKontingents();
+        List<Kontingent> allKontingentsWithoutPaid = new ArrayList<>();
+
+        for (Kontingent kontigent : allKontingents) {
+            if (kontigent.getIsPaid() != true) {
+                allKontingentsWithoutPaid.add(kontigent);
+            }
+        }
+        updateKontigentFile(allKontingentsWithoutPaid);
+    }
+
     public void updateKontigentFile(List<Kontingent> newData) {
         fh.clearFile(KONTINGENT_FILE);
         saveKontigentListToFile(newData);
@@ -265,6 +277,16 @@ public class MembershipFee {
         return  memberExists;
     }
 
+    public boolean checkKontingentsForPaid() {
+        List<Kontingent> allKontingents = getAllKontingents();
+        boolean kontigentPaid = false;
 
+        for (Kontingent kontigent : allKontingents) {
+            if (kontigent.getIsPaid() == true) {
+                kontigentPaid = true;
+            }
+        }
+        return kontigentPaid;
+    }
 
 }

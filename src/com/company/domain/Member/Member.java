@@ -1,7 +1,5 @@
 package com.company.domain.Member;
 
-import com.company.domain.Kontingent;
-
 
 public class Member {
 
@@ -9,7 +7,6 @@ public class Member {
     protected int age;
     protected boolean activeMembership;
     protected String team;
-    private Kontingent kontingent = new Kontingent();
 
     //konstruktør
     public Member(String fullName, int age, boolean activeMembership) {
@@ -19,8 +16,6 @@ public class Member {
         if (age < 18) {
             this.team = "Junior";
         } else this.team = "Senior";
-
-        makeKontigent();
     }
 
     //CSV konstruktør
@@ -55,14 +50,6 @@ public class Member {
 
     public String getTeam() {
         return team;
-    }
-
-    public Kontingent getKontigent() {
-        return this.kontingent;
-    }
-
-    public void makeKontigent() {
-        this.kontingent.setKontigent(this.age, this.activeMembership);
     }
 
     @Override

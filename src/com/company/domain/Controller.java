@@ -1,5 +1,6 @@
 package com.company.domain;
 
+import com.company.accounting.MembershipFee;
 import com.company.database.FileHandler;
 import com.company.domain.Member.CompSwimmer;
 import com.company.domain.Member.Member;
@@ -14,6 +15,7 @@ public class Controller {
     private UserInterface ui = new UserInterface();
     private FileHandler fh = new FileHandler();
     private MemberController m = new MemberController();
+    private MembershipFee membershipFee = new MembershipFee();
 
 
     public void start() throws IOException {
@@ -135,14 +137,10 @@ public class Controller {
         }
     }
 
+    /*
+
     private void cashierMenu() throws IOException {
         boolean run = true;
-
-        //DELETE
-        Member a = new Member("Sebastian Bjørner", 29, true);
-        m.saveMember(a);
-        Member b = new Member("Sebastian AAA", 17, true);
-        m.saveMember(b);
 
 
         while (run) {
@@ -185,6 +183,52 @@ public class Controller {
         }
     }
 
+     */
+
+    private void cashierMenu() throws IOException {
+        boolean run = true;
+
+
+        while (run) {
+            ui.cashierMenu();
+            String userInput = ui.userInput();
+            switch (userInput) {
+                case "0":
+                    start();
+                    break;
+
+                case "1":
+                    //Opret kontigent for enkeltstående medlem eller alle medlemmer
+                    chargeKontingent();
+                    break;
+
+                case "2":
+                    //Ændre medlem eller alle medlemmer med manglende kontigentbetaling til restance
+                    changeMemberContigentToRestance();
+                    break;
+
+                case "3":
+                    //Se medlemmer i restance
+                    //System.out.println(m.seeMembersWithRestance());
+                    break;
+
+                case "4":
+                    //Medlem betalt for restance/kontigent
+                    //memberPayed();
+                    break;
+
+                case "5":
+                    //Se det årlige forventede kontigentindbetaling
+                    yearlyExpectedKontingentFee();
+                    break;
+
+                default:
+                    ui.userInputNotValid();
+                    break;
+            }
+        }
+    }
+
     private void seeMembers() throws FileNotFoundException {
         //StringBuilder members = showMembersFromFile();
         //System.out.print(members);
@@ -203,6 +247,54 @@ public class Controller {
         isRunning = false;
     }
 
+
+    public void chargeKontingent() {
+        ui.printMessage("""
+                (1) Opret kontigent for enkeltstående medlem
+                (2) Opret kontigent for alle medlemmer""");
+
+        String userInput = ui.userInput();
+        switch (userInput) {
+
+            case "1" -> chargeMember();
+            case "2" -> membershipFee.chargeAllMembers();
+            default -> ui.userInputNotValid();
+        }
+    }
+
+    public void chargeMember() {
+        ui.printMessage("Indtast navnet på personen: ");
+        String nameOfMember = ui.userInput();
+        membershipFee.chargeMember(nameOfMember);
+    }
+
+    public void changeMemberContigentToRestance() {
+        ui.printMessage("""
+                (1) Sæt enkeltstående medlem i restance
+                (2) Sæt alle medlemmer i restance""");
+
+        String userInput = ui.userInput();
+        switch (userInput) {
+
+            case "1" -> memberToRestance();
+            case "2" -> membershipFee.allMembersToRestance();
+            default -> ui.userInputNotValid();
+        }
+    }
+
+    public void memberToRestance() {
+        ui.printMessage("Indtast navnet på personen: ");
+        String nameOfMember = ui.userInput();
+        membershipFee.memberToRestance(nameOfMember);
+    }
+
+    public void yearlyExpectedKontingentFee() {
+        int expectedKontingent = membershipFee.calculateExpectedKontingent();
+        ui.printMessage("Det forventede kontigentindbetaling er " + expectedKontingent + " DKK årligt\n");
+    }
+
+
+    /*
     public void changeMemberContigentToRestance() {
         System.out.print(m.seeMembersWithContigent());
         System.out.print("\nHvilket medlem skal sættes i Restance? ");
@@ -221,5 +313,7 @@ public class Controller {
         ui.userInput();
         m.memberPayedForContigentOrRestance(member, payment);
     }
+
+     */
 
 }

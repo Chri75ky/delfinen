@@ -1,6 +1,5 @@
 package com.company.database;
 
-import com.company.domain.Member.Member;
 import com.company.domain.User;
 
 import java.io.*;
@@ -72,13 +71,6 @@ public class FileHandler {
         }
         return allUsers;
     }
-
-
-
-
-    // Var lidt i tvivl om kontigent og restance metoderne skal være under FileHandler, men så bare vi havde en arraylist med members her
-
-
 
 
 }

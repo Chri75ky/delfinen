@@ -143,7 +143,6 @@ public class Controller {
         while (run) {
             ui.cashierMenu();
             String userInput = ui.userInput();
-            System.out.println("Sss");
             switch (userInput) {
                 case "0":
                     run = false;
@@ -157,6 +156,7 @@ public class Controller {
 
                 case "2":
                     //Ændre medlem eller alle medlemmer med manglende kontigentbetaling til restance
+                    //TODO Først check at der er medlemmer i kontigent filen så den ikke laver fejl ellers
                     changeMemberContigentToRestance();
                     break;
 

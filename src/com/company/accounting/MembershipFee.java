@@ -45,6 +45,7 @@ public class MembershipFee {
                     saveToCSV(KONTINGENT_FILE, newKontingentCSV);
                 }
             }
+            br.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,6 +79,7 @@ public class MembershipFee {
                 saveToCSV(KONTINGENT_FILE, newKontingentCSV);
 
             }
+            br.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,6 +109,7 @@ public class MembershipFee {
                 expectedKontingent += expKontingent.getPrice();
 
             }
+            br.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -167,6 +170,7 @@ public class MembershipFee {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream(file, true));
             ps.append(csvLine).append("\n");
+            ps.close();
         } catch (FileNotFoundException e) {
             System.out.println("The file does not exist");
         }
@@ -195,6 +199,7 @@ public class MembershipFee {
                 newKontingent.setKontingentPrice();
                 allKontingents.add(newKontingent);
             }
+            br.close();
 
         } catch (IOException e) {
             e.printStackTrace();

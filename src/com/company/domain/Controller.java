@@ -185,7 +185,7 @@ public class Controller {
     }
 
     private void seeMembers() {
-        m.showMembersFromString();
+        m.loadMembersFromFile();
     }
 
     private void seeUsers() throws FileNotFoundException {

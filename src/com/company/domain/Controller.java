@@ -182,9 +182,8 @@ public class Controller {
         }
     }
 
-    private void seeMembers() throws FileNotFoundException {
-        //StringBuilder members = showMembersFromFile();
-        //System.out.print(members);
+    private void seeMembers() {
+        m.showMembersFromString();
     }
 
     private void seeUsers() throws FileNotFoundException {

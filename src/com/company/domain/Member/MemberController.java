@@ -1,8 +1,6 @@
 package com.company.domain.Member;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -100,6 +98,18 @@ public class MemberController {
     public String getInfo(int memberIndex) {
         Member member = members.get(memberIndex);
         return member.toString();
+    }
+    // Kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
+    public void showMembersFromString() {
+        try(BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                System.out.println(str);
+            }
+        }
+        catch (IOException e) {
+            System.out.println("File Read Error");
+        }
     }
 
 }

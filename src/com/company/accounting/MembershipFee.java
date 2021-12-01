@@ -32,7 +32,7 @@ public class MembershipFee {
             while ((line = br.readLine()) != null) {   //Returns a Boolean value
                 String[] member = line.split(splitBy);
 
-                if (member[0].contains(nameOfMember)) {
+                if (member[0].contentEquals(nameOfMember)) {
                     String memberName = member[0];
                     int memberAge = Integer.parseInt(member[1]);
                     boolean membershipStatus = Boolean.parseBoolean(member[2]);
@@ -124,7 +124,7 @@ public class MembershipFee {
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getInRestance() == false && kontigent.getMemberName().contains(nameOfMember) && kontigent.getIsPaid() == false) {
+            if (kontigent.getInRestance() == false && kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.getIsPaid() == false) {
                 kontigent.setInRestance();
             }
         }
@@ -265,7 +265,7 @@ public class MembershipFee {
             while ((line = br.readLine()) != null) {   //Returns a Boolean value
                 String[] member = line.split(splitBy);
 
-                if (member[0].contains(nameOfMember)) {
+                if (member[0].contentEquals(nameOfMember)) {
                     memberExists = true;
                 }
             }
@@ -287,6 +287,36 @@ public class MembershipFee {
             }
         }
         return kontigentPaid;
+    }
+
+    public String showListOfMembers(String fileName) {
+        String file = new String();
+        StringBuilder str = new StringBuilder();
+
+        if (fileName.contains("mF")) {
+            file = MEMBER_FILE;
+        } else if (fileName.contains("kF")) {
+            file = KONTINGENT_FILE;
+        }
+
+        int count = 1;
+        String line = "";
+        String splitBy = ";";
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            if ((line = br.readLine()) != null) {
+                String[] member = line.split(splitBy);
+                str.append("(" + count + ") " + member[0] + "\n");
+                count++;
+
+            }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str.toString();
     }
 
 }

@@ -168,6 +168,7 @@ public class Controller {
 
                 case "4":
                     //TODO Medlem betalt for restance/kontigent
+                    //TODO Vis liste med medlemmer med  manglende kontigent og restance og derefter userinput
                     //memberPayed();
                     break;
 
@@ -232,8 +233,9 @@ public class Controller {
             membershipFee.chargeMember(nameOfMember);
             ui.printMessage("Kontigent oprettet for " + nameOfMember + "\n");
         } else {
-            ui.printMessage("Kunne ikke finde " + nameOfMember + " i systemet\n");
-            //TODO Giv liste af medlemmer i medlemsfilen
+            ui.printMessage("Kunne ikke finde " + nameOfMember + " i systemet");
+            ui.printMessage("Ønsker du at se en liste over medlemmer i systemet? (y/n) ");
+            showListOfMembers("mF");
         }
     }
 
@@ -263,8 +265,9 @@ public class Controller {
             membershipFee.memberToRestance(nameOfMember);
             ui.printMessage(nameOfMember + " er nu sat i restance\n");
         } else {
-            ui.printMessage("Der er ingen medlemmer af navnet " + nameOfMember + ", som har manglende kontigentbetaling\n");
-            //TODO Giv liste af medlemmer i Kontigentfilen
+            ui.printMessage("Der er ingen medlemmer af navnet " + nameOfMember + ", som har manglende kontigentbetaling");
+            ui.printMessage("Ønsker du at se en liste over medlemmer med manglende kontigentbetaling? (y/n) ");
+            showListOfMembers("kF");
         }
     }
 
@@ -289,6 +292,16 @@ public class Controller {
             ui.printMessage("De betalte kontigent eller restance regninger er fjernet fra systemet\n");
         } else {
             ui.printMessage("Der er ingen betalte kontigent eller restance regninger i systemet\n");
+        }
+    }
+
+    public void showListOfMembers(String fileName) {
+        String input = ui.userInput();
+        switch (input) {
+
+            case "y","yes","Yes","Y" -> ui.printMessage(membershipFee.showListOfMembers(fileName));
+            case "n","no","No","N" -> ui.printMessage("Vender tilbage til kasseremenuen...\n");
+            default -> ui.userInputNotValid();
         }
     }
 

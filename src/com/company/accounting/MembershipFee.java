@@ -153,6 +153,11 @@ public class MembershipFee {
                 index++;
             }
         }
+
+        if (str.isEmpty()) {
+            str.append("Der er ingen medlemmer i restance\n");
+        }
+
         return str.toString();
     }
 
@@ -178,7 +183,7 @@ public class MembershipFee {
         }
     }
 
-    private List<Kontingent> getAllKontingents() {
+    public List<Kontingent> getAllKontingents() {
         List<Kontingent> allKontingents = new ArrayList<>();
         String line = "";
         String splitBy = ";";
@@ -209,5 +214,57 @@ public class MembershipFee {
 
         return allKontingents;
     }
+
+    public boolean checkMemberFileForMembers() {
+        boolean membersInFile = false;
+
+        String line = "";
+        String splitBy = ";";
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(MEMBER_FILE));
+            if ((line = br.readLine()) != null) {
+                membersInFile = true;
+            }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return membersInFile;
+    }
+
+    public boolean memberExistInFile(String nameOfMember, String fileName) {
+        boolean memberExists = false;
+        String file = new String();
+
+        if (fileName.contains("mF")) {
+            file = MEMBER_FILE;
+        } else if (fileName.contains("kF")) {
+            file = KONTINGENT_FILE;
+        }
+
+        String line = "";
+        String splitBy = ";";
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            while ((line = br.readLine()) != null) {   //Returns a Boolean value
+                String[] member = line.split(splitBy);
+
+                if (member[0].contains(nameOfMember)) {
+                    memberExists = true;
+                }
+            }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  memberExists;
+    }
+
+
 
 }

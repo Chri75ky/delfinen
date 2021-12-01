@@ -158,7 +158,6 @@ public class Controller {
 
                 case "2":
                     //Ændre medlem eller alle medlemmer med manglende kontigentbetaling til restance
-                    //TODO Først check at der er medlemmer i kontigent filen så den ikke laver fejl ellers
                     changeMemberContigentToRestance();
                     break;
 
@@ -169,6 +168,7 @@ public class Controller {
 
                 case "4":
                     //TODO Medlem betalt for restance/kontigent
+                    //TODO lav ekstra case med at slette alle betalte regninger fra systemet
                     //memberPayed();
                     break;
 
@@ -203,53 +203,78 @@ public class Controller {
 
 
     public void chargeKontingent() {
-        ui.printMessage("""
+        if (membershipFee.checkMemberFileForMembers() == true) {
+            ui.printMessage("""
                 (1) Opret kontigent for enkeltstående medlem
                 (2) Opret kontigent for alle medlemmer""");
 
-        String userInput = ui.userInput();
-        switch (userInput) {
+            String userInput = ui.userInput();
+            switch (userInput) {
 
-            case "1" -> chargeMember();
-            case "2" -> membershipFee.chargeAllMembers();
-            default -> ui.userInputNotValid();
+                case "1" -> chargeMember();
+                case "2" -> membershipFee.chargeAllMembers();
+                default -> ui.userInputNotValid();
+            }
+        } else {
+            ui.printMessage("Der eksistere ikke nogen medlemmer i databasen\n");
         }
     }
 
     public void chargeMember() {
         ui.printMessage("Indtast navnet på personen: ");
         String nameOfMember = ui.userInput();
-        membershipFee.chargeMember(nameOfMember);
+
+        if (membershipFee.memberExistInFile(nameOfMember, "mF")) {
+            membershipFee.chargeMember(nameOfMember);
+            ui.printMessage("Kontigent oprettet for " + nameOfMember + "\n");
+        } else {
+            ui.printMessage("Kunne ikke finde " + nameOfMember + " i systemet\n");
+            //TODO Giv liste af medlemmer i medlemsfilen
+        }
     }
 
     public void changeMemberContigentToRestance() {
-        ui.printMessage("""
+        if (membershipFee.getAllKontingents().size() > 0) {
+            ui.printMessage("""
                 (1) Sæt enkeltstående medlem i restance
                 (2) Sæt alle medlemmer i restance""");
 
-        String userInput = ui.userInput();
-        switch (userInput) {
+            String userInput = ui.userInput();
+            switch (userInput) {
 
-            case "1" -> memberToRestance();
-            case "2" -> membershipFee.allMembersToRestance();
-            default -> ui.userInputNotValid();
+                case "1" -> memberToRestance();
+                case "2" -> membershipFee.allMembersToRestance();
+                default -> ui.userInputNotValid();
+            }
+        } else {
+            ui.printMessage("Der er ingen medlemmer at sætte i restance\n");
         }
     }
 
     public void memberToRestance() {
         ui.printMessage("Indtast navnet på personen: ");
         String nameOfMember = ui.userInput();
-        membershipFee.memberToRestance(nameOfMember);
+
+        if (membershipFee.memberExistInFile(nameOfMember, "kF")) {
+            membershipFee.memberToRestance(nameOfMember);
+            ui.printMessage(nameOfMember + " er nu sat i restance\n");
+        } else {
+            ui.printMessage("Der er ingen medlemmer af navnet " + nameOfMember + ", som har manglende kontigentbetaling\n");
+            //TODO Giv liste af medlemmer i Kontigentfilen
+        }
     }
 
     public void seeMembersInRestance() {
-        String membersInRestance = membershipFee.getMembersInRestance();
-        ui.printMessage(membersInRestance);
+        if (membershipFee.getAllKontingents().size() > 0) {
+            String membersInRestance = membershipFee.getMembersInRestance();
+            ui.printMessage(membersInRestance);
+        } else {
+            ui.printMessage("Der er ingen medlemmer i restance\n");
+        }
     }
 
     public void yearlyExpectedKontingentFee() {
         int expectedKontingent = membershipFee.calculateExpectedKontingent();
         ui.printMessage("Det forventede kontigentindbetaling er " + expectedKontingent + " DKK årligt\n");
     }
-
 }

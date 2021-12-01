@@ -56,6 +56,10 @@ public class Kontingent {
         return this.price;
     }
 
+    public void mergePrice(double priceToMergeWith) {
+        this.price = this.price + priceToMergeWith;
+    }
+
     public String getMemberName() {
         return this.memberName;
     }

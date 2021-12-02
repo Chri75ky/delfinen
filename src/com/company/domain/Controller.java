@@ -169,7 +169,7 @@ public class Controller {
                 case "4":
                     //TODO Medlem betalt for restance/kontigent
                     //TODO Vis liste med medlemmer med  manglende kontigent og restance og derefter userinput
-                    //memberPayed();
+                    noteMemberAsPaid();
                     break;
 
                 case "5":
@@ -302,6 +302,19 @@ public class Controller {
             case "y","yes","Yes","Y" -> ui.printMessage(membershipFee.showListOfMembers(fileName));
             case "n","no","No","N" -> ui.printMessage("Vender tilbage til kasseremenuen...\n");
             default -> ui.userInputNotValid();
+        }
+    }
+
+    public void noteMemberAsPaid() {
+        //TODO members betaler for alle indestående regninger/man får liste med medlem og indestående regninger -> enten vælge at betale for en/dem alle
+        ui.printMessage("Indtast medlems navn: ");
+        String nameOfMember = ui.userInput();
+
+        if (membershipFee.memberExistsAndOwes(nameOfMember)) {
+
+
+        } else {
+            ui.printMessage("Der er ingen medlemmer med navnet " + nameOfMember + " som har indestående kontigent eller restance betaling\n");
         }
     }
 

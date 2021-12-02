@@ -12,6 +12,14 @@ public class CompSwimmer extends Member {
         //TODO Tilføj en måde at sætte en træner på svømmeren ud fra deres alder (under 18 vs 18 og over)
     }
 
+    public String toCSV() {
+        return fullName + ";" +
+                age + ";" +
+                activeMembership + ";" +
+                team + ";" +
+                discipline;
+    }
+
 
     @Override
     public String toString() {

@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
+    private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -18,13 +19,30 @@ public class MemberController {
         }
 
         // Tilføjer medlemmet til filen
-        ps.append(toCSV());
+        ps.append(memberToCSV());
+
+    }
+
+    public void addCompSwimmerToFile() throws FileNotFoundException {
+        PrintStream ps = new PrintStream(new FileOutputStream("data/KonkurrenceSvømmer.csv", true));
+        Scanner out = new Scanner("data/KonkurrenceSvømmer.csv");
+
+        while (out.hasNextLine()) {
+            out.nextLine();
+        }
+
+        // Tilføjer konkurrence svømmeren til filen
+        ps.append(compSwimmerToCSV());
 
     }
 
     //tilføjer medlem til arrayList
     public void saveMember(Member member) {
         members.add(member);
+    }
+
+    public void saveCompSwimmer(CompSwimmer compSwimmer) {
+        compSwimmers.add(compSwimmer);
     }
 
     //sletter medlem fra arrayList members
@@ -41,11 +59,21 @@ public class MemberController {
         return null;
     }
 
-    public String toCSV() {
+    public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (Member member : members) {
+        for (Member member :  members) {
             sb.append(member.toCSV()).append('\n');
+        }
+
+        return sb.toString();
+    }
+
+    public String compSwimmerToCSV() {
+        StringBuilder sb = new StringBuilder();
+
+        for (CompSwimmer compSwimmer : compSwimmers) {
+            sb.append(compSwimmer.toCSV()).append('\n');
         }
 
         return sb.toString();

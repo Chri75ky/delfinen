@@ -143,21 +143,21 @@ public class Controller {
                 int choice = ui.userIntput();
                 ui.userInput();
                 if (choice == 1) {
-                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BUTTERFLY);
-                    m.saveMember(newMember);
-                    ui.printMessage(newMember.toString());
+                    CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BUTTERFLY);
+                    m.saveCompSwimmer(compSwimmer);
+                    ui.printMessage(compSwimmer.toString());
                 } else if (choice == 2) {
-                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.CRAWL);
-                    m.saveMember(newMember);
-                    ui.printMessage(newMember.toString());
+                    CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.CRAWL);
+                    m.saveCompSwimmer(compSwimmer);
+                    ui.printMessage(compSwimmer.toString());
                 } else if (choice == 3) {
-                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BACKCRAWL);
-                    m.saveMember(newMember);
-                    ui.printMessage(newMember.toString());
+                    CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BACKCRAWL);
+                    m.saveCompSwimmer(compSwimmer);
+                    ui.printMessage(compSwimmer.toString());
                 } else if (choice == 4) {
-                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BREASTSTROKE);
-                    m.saveMember(newMember);
-                    ui.printMessage(newMember.toString());
+                    CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BREASTSTROKE);
+                    m.saveCompSwimmer(compSwimmer);
+                    ui.printMessage(compSwimmer.toString());
                 }
             }
         }
@@ -225,6 +225,7 @@ public class Controller {
 
     public void exit() throws FileNotFoundException {
         m.addMembersToFile();
+        m.addCompSwimmerToFile();
         isRunning = false;
     }
 

@@ -44,4 +44,8 @@ public class UserInterface {
     public void printMessage(String s) {
         System.out.println(s);
     }
+
+    public void printMessage(StringBuilder s) {
+        System.out.println(s);
+    }
 }

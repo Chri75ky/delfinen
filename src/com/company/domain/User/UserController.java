@@ -4,6 +4,7 @@ import com.company.domain.Member.Member;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserController {
@@ -61,5 +62,22 @@ public class UserController {
     //printer arrayList ud
     public String seeUsers() {
         return users.toString();
+    }
+
+    public void loadUsersFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/Brugere.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                System.out.println(Arrays.toString(tokens));
+                String name = tokens[0];
+                Role role = Role.valueOf(tokens[1]);
+
+                User currentUser = new User(name, role);
+                users.add(currentUser);
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
     }
 }

@@ -216,9 +216,8 @@ public class Controller {
         m.loadMembersFromFile();
     }
 
-    private void seeUsers() throws FileNotFoundException {
-        StringBuilder users = u.showUsersFromFile();
-        System.out.print(users);
+    private void seeUsers() {
+        u.loadUsersFromFile();
     }
 
     private void topFive() {

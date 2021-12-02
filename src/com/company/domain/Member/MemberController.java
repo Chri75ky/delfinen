@@ -3,19 +3,10 @@ package com.company.domain.Member;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
-
-    public void addMember(Member member) {
-        members.add(member);
-    }
-
-    public void deleteMember(int memberIndex) {
-        members.remove(members.get(memberIndex));
-    }
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -29,18 +20,11 @@ public class MemberController {
         // Tilføjer medlemmet til filen
         ps.append(toCSV());
 
-        //TODO Fjern medlemmet fra arraylisten?
     }
 
     //tilføjer medlem til arrayList
-    public void saveMember(Member member) throws FileNotFoundException {
+    public void saveMember(Member member) {
         members.add(member);
-    }
-
-    //TODO gør at den printer medlemmerne ud fra filen.
-    //printer arrayList ud
-    public String seeMembers() {
-        return members.toString();
     }
 
     //sletter medlem fra arrayList members

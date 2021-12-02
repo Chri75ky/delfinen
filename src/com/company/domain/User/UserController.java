@@ -1,5 +1,7 @@
 package com.company.domain.User;
 
+import com.company.domain.Member.Member;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,8 +40,8 @@ public class UserController {
     }
 
     public void addUserToFile(User user) throws FileNotFoundException {
-        PrintStream ps = new PrintStream(new FileOutputStream("Brugere.csv", true));
-        Scanner out = new Scanner("Brugere.csv");
+        PrintStream ps = new PrintStream(new FileOutputStream("data/Brugere.csv", true));
+        Scanner out = new Scanner("data/Brugere.csv");
 
 
         while (out.hasNextLine()) {
@@ -47,9 +49,19 @@ public class UserController {
         }
 
         // Tilføjer user til "UserList.txt"
-        ps.append("\n" + "Navn: " + user.getFullName() + "\n" + "Rolle: " + user.getRole() + "\n");
+        ps.append(toCSV());
 
         //TODO Fjern user fra arraylist?
+    }
+
+    public String toCSV() {
+        StringBuilder sb = new StringBuilder();
+
+        for (User user : users) {
+            sb.append(user.toCSV()).append('\n');
+        }
+
+        return sb.toString();
     }
 
     //sletter user fra arrayList users

@@ -1,4 +1,4 @@
-package com.company.domain;
+package com.company.domain.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -95,14 +95,6 @@ public class User {
 
     public Role getRole() {
         return role;
-    }
-
-    //rollen brugeren kan have
-    enum Role {
-        FORMAND,
-        KASSERER,
-        TRÆNER,
-        DEFAULT
     }
 
     @Override

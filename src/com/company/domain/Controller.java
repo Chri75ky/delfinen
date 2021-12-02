@@ -3,8 +3,11 @@ package com.company.domain;
 import com.company.accounting.MembershipFee;
 import com.company.database.FileHandler;
 import com.company.domain.Member.CompSwimmer;
+import com.company.domain.Member.Disciplin;
 import com.company.domain.Member.Member;
 import com.company.domain.Member.MemberController;
+import com.company.domain.User.Role;
+import com.company.domain.User.User;
 import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
@@ -17,7 +20,7 @@ public class Controller {
     private final FileHandler fh = new FileHandler();
     private final MemberController m = new MemberController();
     private final MembershipFee membershipFee = new MembershipFee();
-    private final User u = new User(null, User.Role.DEFAULT);
+    private final User u = new User(null, Role.DEFAULT);
 
     public void start() throws IOException {
         while (isRunning) {
@@ -68,15 +71,15 @@ public class Controller {
         int choice = ui.userIntput();
         ui.userInput();
         if (choice == 1) {
-            User user = new User(fullName, User.Role.FORMAND);
+            User user = new User(fullName, Role.FORMAND);
             u.saveUser(user);
             ui.printMessage(user.toString());
         } else if (choice == 2) {
-            User user = new User(fullName, User.Role.KASSERER);
+            User user = new User(fullName, Role.KASSERER);
             u.saveUser(user);
             ui.printMessage(user.toString());
         } else if (choice == 3) {
-            User user = new User(fullName, User.Role.TRÆNER);
+            User user = new User(fullName, Role.TRÆNER);
             u.saveUser(user);
             ui.printMessage(user.toString());
         }
@@ -129,11 +132,32 @@ public class Controller {
             if (member == null) {
                 ui.printMessage("Personen eksisterer ikke i databasen.");
             } else {
-                ui.printMessage("Vælg disciplin:");
-                String disciplin = ui.userInput();
-                CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), disciplin);
-                m.saveMember(newMember);
-                ui.printMessage(newMember.toString());
+                ui.printMessage("""
+                        Vælg disciplin:
+                        1) Butterfly
+                        2) Crawl
+                        3) Backcrawl
+                        4) Breaststroke\n""");
+
+                int choice = ui.userIntput();
+                ui.userInput();
+                if (choice == 1) {
+                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BUTTERFLY);
+                    m.saveMember(newMember);
+                    ui.printMessage(newMember.toString());
+                } else if (choice == 2) {
+                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.CRAWL);
+                    m.saveMember(newMember);
+                    ui.printMessage(newMember.toString());
+                } else if (choice == 3) {
+                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BACKCRAWL);
+                    m.saveMember(newMember);
+                    ui.printMessage(newMember.toString());
+                } else if (choice == 4) {
+                    CompSwimmer newMember = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BREASTSTROKE);
+                    m.saveMember(newMember);
+                    ui.printMessage(newMember.toString());
+                }
             }
         }
     }
@@ -320,15 +344,15 @@ public class Controller {
     public void payBill(String nameOfMember) {
         ui.printMessage("""
          Ønsker du at:
-         (1) Betale alle regninger for medlemmet
-         (2) Betale for en enkel regning""");
+         (1) Marker alle regninger for medlemmet som betalt
+         (2) marker enkel regning for medlemmet som betalt""");
 
         String userInput = ui.userInput();
         switch (userInput) {
 
             case "1":
                 membershipFee.payAllBills(nameOfMember);
-                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu betalt\n");
+                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu markeret som betalt\n");
                 break;
 
             case "2":

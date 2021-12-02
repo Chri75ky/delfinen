@@ -33,7 +33,7 @@ public class MemberController {
     }
 
     //tilføjer medlem til arrayList
-    public void saveMember(Member member) throws FileNotFoundException {
+    public void saveMember(Member member) {
         members.add(member);
     }
 

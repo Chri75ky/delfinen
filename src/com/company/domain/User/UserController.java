@@ -1,5 +1,7 @@
 package com.company.domain.User;
 
+import com.company.domain.Member.Member;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,14 +18,12 @@ public class UserController {
 
     //TODO INPROGRESS prøver at lave sådan at den kan finde brugeren direkte fra textfilen
     //finder en bruger i brugerListen, ved brug af navn
-    public User findUser(String userName) throws IOException {
-       /* for (int i = 0; i < users.size(); i++) {
-            if (userName.equalsIgnoreCase(users.get(i).getFullName())) {
-                return users.get(i);
-            } else return null;
+    public User findUser(String name) {
+        for (com.company.domain.User.User user : users) {
+            if (user.getFullName().equals(name)) {
+                return user;
+            }
         }
-        return null;*/
-
         return null;
     }
 

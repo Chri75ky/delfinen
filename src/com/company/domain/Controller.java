@@ -8,6 +8,7 @@ import com.company.domain.Member.Member;
 import com.company.domain.Member.MemberController;
 import com.company.domain.User.Role;
 import com.company.domain.User.User;
+import com.company.domain.User.UserController;
 import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
@@ -20,7 +21,7 @@ public class Controller {
     private final FileHandler fh = new FileHandler();
     private final MemberController m = new MemberController();
     private final MembershipFee membershipFee = new MembershipFee();
-    private final User u = new User(null, Role.DEFAULT);
+    private final UserController u = new UserController();
 
     public void start() throws IOException {
         while (isRunning) {

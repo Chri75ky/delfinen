@@ -12,7 +12,6 @@ public class FileHandler {
             FileWriter fw = new FileWriter(fileName, false);
             fw.close();
         } catch (Exception e) {
-            //TODO hvad skal der stå
             System.out.println("Can't clear file..");
         }
     }

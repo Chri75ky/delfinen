@@ -335,4 +335,40 @@ public class MembershipFee {
         return memberExists;
     }
 
+    public String billsForMemberThatOwes (String nameOfMember) {
+        List<Kontingent> allKontingents = getAllKontingents();
+        StringBuilder str = new StringBuilder();
+
+        str.append(nameOfMember + " har følgende manglende betalinger:\n");
+        String restanceOrNot = new String();
+        int count = 1;
+        for (Kontingent k : allKontingents) {
+            if (k.getMemberName().contentEquals(nameOfMember)) {
+
+                if (k.getInRestance() == false) {
+                    restanceOrNot = "i kontigent";
+                } else {
+                    restanceOrNot = "i restance";
+                }
+
+                str.append("(" + count + ") " + k.getPrice() + " DKK " + restanceOrNot + "\n");
+                count++;
+            }
+        }
+
+
+        return str.toString();
+    }
+
+    public void payAllBills(String nameOfMember) {
+        List<Kontingent> allKontingents = getAllKontingents();
+
+        for (Kontingent k : allKontingents) {
+            if (k.getMemberName().contentEquals(nameOfMember) && k.getIsPaid() == false) {
+                k.isPaid();
+            }
+        }
+        updateKontigentFile(allKontingents);
+    }
+
 }

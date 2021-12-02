@@ -167,8 +167,6 @@ public class Controller {
                     break;
 
                 case "4":
-                    //TODO Medlem betalt for restance/kontigent
-                    //TODO Vis liste med medlemmer med  manglende kontigent og restance og derefter userinput
                     noteMemberAsPaid();
                     break;
 
@@ -306,15 +304,40 @@ public class Controller {
     }
 
     public void noteMemberAsPaid() {
-        //TODO members betaler for alle indestående regninger/man får liste med medlem og indestående regninger -> enten vælge at betale for en/dem alle
-        ui.printMessage("Indtast medlems navn: ");
+        ui.printMessage("Indtast navnet på medlemmet der har betalt: ");
         String nameOfMember = ui.userInput();
 
         if (membershipFee.memberExistsAndOwes(nameOfMember)) {
-
+            String memberBills = membershipFee.billsForMemberThatOwes(nameOfMember);
+            ui.printMessage(memberBills);
+            payBill(nameOfMember);
 
         } else {
-            ui.printMessage("Der er ingen medlemmer med navnet " + nameOfMember + " som har indestående kontigent eller restance betaling\n");
+            ui.printMessage("Der er ingen medlemmer med navnet " + nameOfMember + " som har manglende kontigent eller restance betalinger\n");
+        }
+    }
+
+    public void payBill(String nameOfMember) {
+        ui.printMessage("""
+         Ønsker du at:
+         (1) Betale alle regninger for medlemmet
+         (2) Betale for en enkel regning""");
+
+        String userInput = ui.userInput();
+        switch (userInput) {
+
+            case "1":
+                membershipFee.payAllBills(nameOfMember);
+                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu betalt\n");
+                break;
+
+            case "2":
+                //TODO implement
+                ui.printMessage("Not yet implemented\n");
+                break;
+
+            default:
+                ui.userInputNotValid();
         }
     }
 

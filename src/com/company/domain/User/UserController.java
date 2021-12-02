@@ -4,6 +4,7 @@ import com.company.domain.Member.Member;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserController {
@@ -18,14 +19,12 @@ public class UserController {
 
     //TODO INPROGRESS prøver at lave sådan at den kan finde brugeren direkte fra textfilen
     //finder en bruger i brugerListen, ved brug af navn
-    public User findUser(String userName) throws IOException {
-       /* for (int i = 0; i < users.size(); i++) {
-            if (userName.equalsIgnoreCase(users.get(i).getFullName())) {
-                return users.get(i);
-            } else return null;
+    public User findUser(String name) {
+        for (com.company.domain.User.User user : users) {
+            if (user.getFullName().equals(name)) {
+                return user;
+            }
         }
-        return null;*/
-
         return null;
     }
 
@@ -73,5 +72,22 @@ public class UserController {
     //printer arrayList ud
     public String seeUsers() {
         return users.toString();
+    }
+
+    public void loadUsersFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/Brugere.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                System.out.println(Arrays.toString(tokens));
+                String name = tokens[0];
+                Role role = Role.valueOf(tokens[1]);
+
+                User currentUser = new User(name, role);
+                users.add(currentUser);
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
     }
 }

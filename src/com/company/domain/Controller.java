@@ -328,7 +328,7 @@ public class Controller {
 
             case "1":
                 membershipFee.payAllBills(nameOfMember);
-                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu betalt\n");
+                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu markeret som betalt\n");
                 break;
 
             case "2":

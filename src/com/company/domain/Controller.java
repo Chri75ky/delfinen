@@ -344,15 +344,15 @@ public class Controller {
     public void payBill(String nameOfMember) {
         ui.printMessage("""
          Ønsker du at:
-         (1) Betale alle regninger for medlemmet
-         (2) Betale for en enkel regning""");
+         (1) Marker alle regninger for medlemmet som betalt
+         (2) marker enkel regning for medlemmet som betalt""");
 
         String userInput = ui.userInput();
         switch (userInput) {
 
             case "1":
                 membershipFee.payAllBills(nameOfMember);
-                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu betalt\n");
+                ui.printMessage("Alle " + nameOfMember + "'s regninger er nu markeret som betalt\n");
                 break;
 
             case "2":

@@ -7,39 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MemberController {
-    private final Member m = new Member(null, 0, true);
-
-    public MemberController() {
-
-    }
-
-    //getting text from file
     private final ArrayList<Member> members = new ArrayList<>();
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public String getStringOfMembers() {
-        int index = 1;
-        StringBuilder sb = new StringBuilder();
-
-        for (Member member : members) {
-            sb.append(index).append(". ").append(simplePrint()).append('\n');
-            index++;
-        }
-
-        return sb.toString();
-    }
-
-    private String simplePrint() {
-        return "Navn: " + m.fullName + ", Medlemstype: " + m.activeMembership + ", Hold: " + m.team;
-    }
 
     public void addMember(Member member) {
         members.add(member);
     }
-
 
     public void deleteMember(int memberIndex) {
         members.remove(members.get(memberIndex));
@@ -49,7 +21,6 @@ public class MemberController {
     public void addMembersToFile() throws FileNotFoundException {
         PrintStream ps = new PrintStream(new FileOutputStream("data/Medlemmer.csv", true));
         Scanner out = new Scanner("data/Medlemmer.csv");
-
 
         while (out.hasNextLine()) {
             out.nextLine();

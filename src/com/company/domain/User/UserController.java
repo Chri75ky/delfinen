@@ -1,14 +1,10 @@
 package com.company.domain.User;
 
-
-import com.company.domain.Member.Member;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserController {
-    private final User u = new User(null, Role.DEFAULT);
     private ArrayList<User> users = new ArrayList<>();
 
 
@@ -60,7 +56,6 @@ public class UserController {
     public void deleteUser(User user) {
         users.remove(user);
     }
-
 
     //TODO lav at den henter users fra filen
     //printer arrayList ud

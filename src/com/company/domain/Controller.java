@@ -192,6 +192,7 @@ public class Controller {
                     break;
 
                 case "4":
+                    //Noter medlem som betalt
                     noteMemberAsPaid();
                     break;
 

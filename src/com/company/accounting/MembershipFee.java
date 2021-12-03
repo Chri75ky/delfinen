@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//TODO kig på om try catch - catch er rigtig eller om der er noget andet der skal skrives ud
-
 //TODO evt. nogen af metoderne (især dem der return boolean) kan måske sammensættes hvis man laver et par ændringer så der kommer mindre kode
-//TODO evt. update den måde filen står på, så der ikke står true/false, men istedet fx paid/not paid og in restance/not in restance + opdeling bedre med kollonner og overskrifter på første row
 //TODO evt. lav en/flere sort metoder der laver list af members i alfabetisk rækkefølge/hvem der skylder mest
 
 

@@ -56,9 +56,12 @@ public class Kontingent {
         return this.price;
     }
 
+    /*
     public void mergePrice(double priceToMergeWith) {
         this.price = this.price + priceToMergeWith;
     }
+
+     */
 
     public String getMemberName() {
         return this.memberName;
@@ -81,12 +84,35 @@ public class Kontingent {
     }
 
     public String toCSV() {
-        return  memberName + ";" +
+        String membershipStatusText = new String();
+        if (this.membershipStatus == true) {
+            membershipStatusText = "Aktivt medlemsskab";
+        } else {
+            membershipStatusText = "Passivt medlemsskab";
+        }
+
+        String isPaidText = new String();
+        if (this.isPaid == true) {
+            isPaidText = "Betalt";
+        } else {
+            isPaidText = "Ikke betalt";
+        }
+
+        String inRestanceText = new String();
+        if (this.inRestance == true) {
+            inRestanceText = "Restance";
+        } else {
+            inRestanceText = "Kontigent";
+        }
+
+
+        return memberName + ";" +
                 memberAge + ";" +
-                membershipStatus + ";" +
+                membershipStatusText + ";" +
                 price + ";" +
-                isPaid + ";" +
-                inRestance;
+                isPaidText + ";" +
+                inRestanceText;
+
     }
 
 }

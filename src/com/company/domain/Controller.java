@@ -124,7 +124,7 @@ public class Controller {
 
     //metode til at lave et almindeligt medlem om til en konkurrencesvømmer
     private void changeToCompSwimmer() throws FileNotFoundException {
-        ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n");
+        ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n)");
         String input = ui.userInput();
         if (input.equalsIgnoreCase("J")) {
             ui.printMessage("Indtast navnet på medlemmet du gerne vil konvertere til konkurrencesvømmer:");

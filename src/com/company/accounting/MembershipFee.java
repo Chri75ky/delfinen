@@ -211,10 +211,27 @@ public class MembershipFee {
 
                 String memberName = member[0];
                 int memberAge = Integer.parseInt(member[1]);
-                boolean membershipStatus = Boolean.parseBoolean(member[2]);
+                boolean membershipStatus;
+                if (member[2].contentEquals("Aktivt medlemsskab")) {
+                    membershipStatus = true;
+                } else {
+                    membershipStatus = false;
+                }
+
                 double price = Double.parseDouble(member[3]);
-                boolean isPaid = Boolean.parseBoolean(member[4]);
-                boolean inRestance = Boolean.parseBoolean(member[5]);
+                boolean isPaid;
+                if (member[4].contentEquals("Betalt")) {
+                    isPaid = true;
+                } else {
+                    isPaid = false;
+                }
+
+                boolean inRestance;
+                if (member[5].contentEquals("Restance")) {
+                    inRestance = true;
+                } else {
+                    inRestance = false;
+                }
 
                 Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
                 newKontingent.setKontingentPrice();

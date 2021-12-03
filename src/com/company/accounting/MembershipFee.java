@@ -17,6 +17,7 @@ public class MembershipFee {
     private static final String KONTINGENT_FILE = "data/Kontingent.csv";
 
 
+    //TODO kan måske ændres så selve textlæsningensker i filehandler og så får man array med medlemmer som man ændre stats på
     public void chargeMember(String nameOfMember) {
         //Loop igennem Medlemmer.csv filen -> opret kontigent for specifikt medlem -> kontigentet går over i ny fil kontigent.csv
 
@@ -119,6 +120,9 @@ public class MembershipFee {
         return (int) Math.round(expectedKontingent);
     }
 
+    //--------------------
+
+
     public void memberToRestance(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
 
@@ -184,6 +188,7 @@ public class MembershipFee {
         }
     }
 
+    //TODO Kan måske rykkes til filehandler
     private void saveToCSV(String file, String csvLine) {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream(file, true));
@@ -194,6 +199,7 @@ public class MembershipFee {
         }
     }
 
+    //TODO kan måske rykkes til filehandler
     public List<Kontingent> getAllKontingents() {
         List<Kontingent> allKontingents = new ArrayList<>();
         String line = "";
@@ -243,6 +249,7 @@ public class MembershipFee {
         return allKontingents;
     }
 
+    //TODO kan rykkes til filehandler og måske sammensættes
     public boolean checkMemberFileForMembers() {
         boolean membersInFile = false;
 
@@ -292,6 +299,7 @@ public class MembershipFee {
         }
         return  memberExists;
     }
+    //---------
 
     public boolean checkKontingentsForPaid() {
         List<Kontingent> allKontingents = getAllKontingents();
@@ -305,6 +313,7 @@ public class MembershipFee {
         return kontigentPaid;
     }
 
+    //TODO kan rykkes til filehandler
     public String showListOfMembers(String fileName) {
         String file = new String();
         StringBuilder str = new StringBuilder();

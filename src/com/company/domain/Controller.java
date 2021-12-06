@@ -123,12 +123,12 @@ public class Controller {
         int age = ui.userIntput();
         ui.printMessage("Har medlemmet et aktivt medlemskab? (j/n)");
         ui.userInput();
-        String answer = ui.userInput();
+        String membershipStatus = ui.userInput();
 
         // laver en boolean for at sætte medlemskabstype til aktiv eller passiv
         boolean activeMembership = false;
         String team;
-        if (answer.equalsIgnoreCase("J")) {
+        if (membershipStatus.equalsIgnoreCase("J")) {
             activeMembership = true;
         }
 

@@ -45,11 +45,6 @@ public class MemberController {
         compSwimmers.add(compSwimmer);
     }
 
-    //sletter medlem fra arrayList members
-    public void deleteMember(Member member) {
-        members.remove(member);
-    }
-
     public Member findMember(String name) {
         for (Member member : members) {
             if (member.getFullName().equals(name)) {
@@ -79,10 +74,31 @@ public class MemberController {
         return sb.toString();
     }
 
-    public String getInfo(int memberIndex) {
-        Member member = members.get(memberIndex);
-        return member.toString();
+    public void readMembersFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                System.out.println(Arrays.toString(tokens));
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
     }
+
+    public void readCompSwimmersFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/KonkurrenceSvømmer.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                System.out.println(Arrays.toString(tokens));
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
+    }
+
+
 
     /* Kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
      Når medlemmer bliver indlæst fra fil bliver de også skabt som Member objekter igen og sat ind i arrayListen.
@@ -95,7 +111,6 @@ public class MemberController {
             String str;
             while ((str = in.readLine()) != null) {
                 String[] tokens = str.split(";");
-                System.out.println(Arrays.toString(tokens));
                 String name = tokens[0];
                 int age = Integer.parseInt(tokens[1]);
                 boolean membershipStatus;
@@ -107,6 +122,30 @@ public class MemberController {
 
                 Member currentMember = new Member(name, age, membershipStatus);
                 members.add(currentMember);
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
+    }
+
+    // Samme som metoden ovenover
+    public void loadCompSwimmerFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/KonkurrenceSvømmer.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                String name = tokens[0];
+                int age = Integer.parseInt(tokens[1]);
+                boolean membershipStatus;
+                if(tokens[2].equalsIgnoreCase("true")) {
+                    membershipStatus = true;
+                } else {
+                    membershipStatus = false;
+                }
+                Disciplin discipline = Disciplin.valueOf(tokens[4]);
+
+                CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline);
+                compSwimmers.add(currentCompSwimmer);
             }
         } catch (IOException e) {
             System.out.println("File Read Error");

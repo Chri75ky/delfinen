@@ -24,6 +24,8 @@ public class Controller {
     private final UserController u = new UserController();
 
     public void start() throws IOException {
+        m.loadMembersFromFile();
+        m.loadCompSwimmerFromFile();
         while (isRunning) {
             ui.menu();
             String userInput = ui.userInput();
@@ -228,7 +230,8 @@ public class Controller {
     }
 
     private void seeMembers() {
-        m.loadMembersFromFile();
+        m.readMembersFromFile();
+        m.readCompSwimmersFromFile();
     }
 
 

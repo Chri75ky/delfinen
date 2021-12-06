@@ -31,26 +31,40 @@ public class Controller {
                 case "0":
                     exit();
                     break;
+
                 case "1":
+                    //opret medlem
                     createUser();
                     break;
+
                 case "2":
+                    //log ind på eksisterende bruger
                     login();
                     break;
+
                 case "3":
+                    //opret en bruger
                     createMember();
                     break;
+
                 case "4":
+                    //lav en medlem om til en konkurrencesvømmer
                     changeToCompSwimmer();
                     break;
+
                 case "5":
+                    //kasserer menu
                     cashierMenu();
                     break;
+
                 case "6":
-                    seeMembers();
+                    //træner menu
+                    coachMenu();
                     break;
+
                 case "7":
-                    topFive();
+                    //se alle medlemmer fra fil
+                    seeMembers();
                     break;
 
                 default:
@@ -217,9 +231,6 @@ public class Controller {
         m.loadMembersFromFile();
     }
 
-    private void seeUsers() {
-        u.loadUsersFromFile();
-    }
 
     private void topFive() {
     }
@@ -364,6 +375,35 @@ public class Controller {
 
             default:
                 ui.userInputNotValid();
+        }
+    }
+
+    private void coachMenu() throws IOException {
+        boolean run = true;
+
+        while (run) {
+            ui.coachMenu();
+            String userInput = ui.userInput();
+            switch (userInput) {
+                case "0":
+                    run = false;
+                    start();
+                    break;
+
+                case "1":
+                    //se top 5 konkurrencesvømmer statistik ud fra den bedste tid
+                    topFive();
+                    break;
+
+                case "2":
+                    //gør at træner kan redigere konkurrencesvømmerens stats
+                    break;
+
+                default:
+                    ui.userInputNotValid();
+                    break;
+            }
+
         }
     }
 

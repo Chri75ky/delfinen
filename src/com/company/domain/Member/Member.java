@@ -18,6 +18,16 @@ public class Member {
         } else this.team = "Senior";
     }
 
+    //CSV konstruktør
+    public Member(String CSV) {
+        String[] elements = CSV.split(";");
+
+        this.fullName = (elements[0]);
+        this.age = Integer.parseInt(elements[1]);
+        this.activeMembership = Boolean.parseBoolean(elements[2]);
+        this.team = elements[3];
+    }
+
     public String toCSV() {
         return fullName + ";" +
                 age + ";" +

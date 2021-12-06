@@ -14,19 +14,27 @@ public class UserInterface {
                 (3) Opret medlem
                 (4) Skift til konkurrencesvømmer
                 (5) Gå til kassere menu
-                (6) Se medlemmer
-                (7) Se top 5""");
+                (6) Gå til træner menu
+                (7) Se medlemmer""");
     }
 
     public void cashierMenu() {
         printMessage("""
                 (0) Gå tilbage til hovedmenuen
-                (1) Opret kontigent
+                (1) Opret kontingent
                 (2) Sæt medlem i restance
                 (3) Se medlemmer i restance
-                (4) Medlem betalt for kontigent eller restance
-                (5) Se det årlige forventede kontigentindbetaling
-                (6) Slet betalte kontigent- og restanceregninger fra systemet""");
+                (4) Medlem betalt for kontingent eller restance
+                (5) Se det årlige forventede kontingentindbetaling
+                (6) Slet betalte kontingent- og restanceregninger fra systemet""");
+    }
+
+    public void coachMenu() {
+        printMessage("""
+                (0) Gå tilbage til hovedmenuen
+                (1) Se top 5
+                (2) Se konkurrencer
+                (3) Indlæs stats""");
     }
 
     public void userInputNotValid() {

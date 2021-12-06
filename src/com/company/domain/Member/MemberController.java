@@ -62,7 +62,7 @@ public class MemberController {
     public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (Member member :  members) {
+        for (Member member : members) {
             sb.append(member.toCSV()).append('\n');
         }
 

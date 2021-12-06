@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 
+
 public class FileHandler {
 
     public void clearFile(String filePath) {

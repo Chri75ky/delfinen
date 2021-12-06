@@ -1,10 +1,8 @@
 package com.company.domain.User;
 
-import com.company.domain.Member.Member;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserController {
@@ -29,7 +27,7 @@ public class UserController {
     }
 
     public StringBuilder showUsersFromFile() throws FileNotFoundException {
-        Scanner users = new Scanner(new File("UserList.txt"));
+        Scanner users = new Scanner(new File("data/Brugere.csv"));
         StringBuilder allUsers = new StringBuilder();
 
         while (users.hasNextLine()) {
@@ -79,7 +77,6 @@ public class UserController {
             String str;
             while ((str = in.readLine()) != null) {
                 String[] tokens = str.split(";");
-                System.out.println(Arrays.toString(tokens));
                 String name = tokens[0];
                 Role role = Role.valueOf(tokens[1]);
 

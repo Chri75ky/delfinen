@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
+    private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
+    private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -38,11 +40,11 @@ public class MemberController {
 
     //tilføjer medlem til arrayList
     public void saveMember(Member member) {
-        members.add(member);
+        newMembers.add(member);
     }
 
     public void saveCompSwimmer(CompSwimmer compSwimmer) {
-        compSwimmers.add(compSwimmer);
+        newCompSwimmers.add(compSwimmer);
     }
 
     public Member findMember(String name) {
@@ -57,7 +59,7 @@ public class MemberController {
     public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (Member member : members) {
+        for (Member member : newMembers) {
             sb.append(member.toCSV()).append('\n');
         }
 
@@ -67,7 +69,7 @@ public class MemberController {
     public String compSwimmerToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (CompSwimmer compSwimmer : compSwimmers) {
+        for (CompSwimmer compSwimmer : newCompSwimmers) {
             sb.append(compSwimmer.toCSV()).append('\n');
         }
 
@@ -152,4 +154,27 @@ public class MemberController {
         }
     }
 
+    public CompSwimmer findCompSwimmer(String name) {
+        for (CompSwimmer compSwimmer : compSwimmers) {
+            if (compSwimmer.getFullName().equals(name)) {
+                return compSwimmer;
+            }
+        }
+        return null;
+    }
+    public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
+        compSwimmer.setBestTime(time);
+    }
+
+    public String showCompSwimmerTimes() {
+        for (CompSwimmer compSwimmer : compSwimmers) {
+            if(compSwimmer.getBestTime() != 0) {
+                return compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline();
+            } else {
+                return compSwimmer.getFullName() + " har ingen registreret tid!";
+            }
+
+        }
+        return null;
+    }
 }

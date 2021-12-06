@@ -34,7 +34,8 @@ public class UserInterface {
                 (0) Gå tilbage til hovedmenuen
                 (1) Se top 5
                 (2) Se konkurrencer
-                (3) Indlæs stats""");
+                (3) Sæt stats for svømmer
+                (4) Se nuværende tider for svømmere""");
     }
 
     public void userInputNotValid() {
@@ -47,6 +48,10 @@ public class UserInterface {
 
     public int userIntput() {
         return scanner.nextInt();
+    }
+
+    public double userDoubleput() {
+        return  scanner.nextDouble();
     }
 
     public void printMessage(String s) {

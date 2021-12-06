@@ -1,10 +1,8 @@
 package com.company.domain.Member;
 
-import com.company.domain.User.User;
-
 public class CompSwimmer extends Member {
     private final Disciplin discipline;
-    private User coach;
+    private double bestTime;
 
     public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline) {
         super(fullName, age, activeMembership);
@@ -20,15 +18,24 @@ public class CompSwimmer extends Member {
                 discipline;
     }
 
+    public Disciplin getDiscipline() {
+        return discipline;
+    }
+
+    public double getBestTime() {
+        return bestTime;
+    }
+
+    public void setBestTime(double bestTime) {
+        this.bestTime = bestTime;
+    }
 
     @Override
     public String toString() {
-        return "CompSwimmer{" +
-                "FullName='" + fullName + '\'' +
-                ", age=" + age +
-                ", activeMembership=" + activeMembership +
-                ", team='" + team + '\'' +
-                ", discipline='" + discipline + '\'' +
-                '}';
+        return fullName + ";" +
+                age + ";" +
+                activeMembership + ";" +
+                team + ";" +
+                discipline;
     }
 }

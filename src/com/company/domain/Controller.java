@@ -189,7 +189,6 @@ public class Controller {
             switch (userInput) {
                 case "0":
                     run = false;
-                    start();
                     break;
 
                 case "1":
@@ -390,7 +389,6 @@ public class Controller {
             switch (userInput) {
                 case "0":
                     run = false;
-                    start();
                     break;
 
                 case "1":
@@ -399,14 +397,41 @@ public class Controller {
                     break;
 
                 case "2":
+                    //Kigger på konkurrencer for de forskellige svømmere
+
+                case "3":
                     //gør at træner kan redigere konkurrencesvømmerens stats
+                    setCompSwimmerStats();
                     break;
+
+                case "4":
+                    //Viser tider for alle svømmere
+                    showCompSwimmerTimes();
 
                 default:
                     ui.userInputNotValid();
                     break;
             }
 
+        }
+    }
+
+    private void showCompSwimmerTimes() {
+        ui.printMessage(m.showCompSwimmerTimes());
+    }
+
+    private void setCompSwimmerStats() {
+        ui.printMessage("Hvilken svømmer ønsker du at sætte en ny tid til?");
+        CompSwimmer swimmerToSetTime = m.findCompSwimmer(ui.userInput());
+        if (swimmerToSetTime != null) {
+            ui.printMessage("Hvilken tid fik svømmeren?");
+            double time = ui.userDoubleput();
+            ui.userInput();
+            m.setCompSwimmerStats(swimmerToSetTime, time);
+            System.out.println(swimmerToSetTime.getFullName() + " " + swimmerToSetTime.getBestTime() + " sek. " + swimmerToSetTime.getDiscipline());
+
+        } else {
+            ui.printMessage("Svømmer ikke fundet!");
         }
     }
 

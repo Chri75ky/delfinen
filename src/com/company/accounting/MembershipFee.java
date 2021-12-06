@@ -17,112 +17,69 @@ public class MembershipFee {
     private static final String KONTINGENT_FILE = "data/Kontingent.csv";
 
 
-    //TODO kan måske ændres så selve textlæsningensker i filehandler og så får man array med medlemmer som man ændre stats på
     public void chargeMember(String nameOfMember) {
-        //Loop igennem Medlemmer.csv filen -> opret kontigent for specifikt medlem -> kontigentet går over i ny fil kontigent.csv
+        ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        String line = "";
-        String splitBy = ";";
+        for (int i = 0; i < listOfMembers.size(); i++) {
+            String[] memberData = listOfMembers.get(i);
 
-
-        try {
-            //Parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader(MEMBER_FILE));
-
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
-                String[] member = line.split(splitBy);
-
-                if (member[0].contentEquals(nameOfMember)) {
-                    String memberName = member[0];
-                    int memberAge = Integer.parseInt(member[1]);
-                    boolean membershipStatus = Boolean.parseBoolean(member[2]);
-                    double price = 0;
-                    boolean isPaid = false;
-                    boolean inRestance = false;
-
-                    Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
-                    newKontingent.setKontingentPrice();
-                    String newKontingentCSV = newKontingent.toCSV();
-
-                    saveToCSV(KONTINGENT_FILE, newKontingentCSV);
-                }
+            if (memberData[0].contentEquals(nameOfMember)) {
+                makeKontingentForMember(memberData);
             }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     public void chargeAllMembers() {
-        //Loop igennem Medlemmer.csv filen -> opret kontigent for hvert medlem -> kontigentet går over i ny fil kontigent.csv
+        ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        String line = "";
-        String splitBy = ";";
-
-        try {
-            //Parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader(MEMBER_FILE));
-
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
-                String[] member = line.split(splitBy);
-
-                String memberName = member[0];
-                int memberAge = Integer.parseInt(member[1]);
-                boolean membershipStatus = Boolean.parseBoolean(member[2]);
-                double price = 0;
-                boolean isPaid = false;
-                boolean inRestance = false;
-
-                Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
-                newKontingent.setKontingentPrice();
-                String newKontingentCSV = newKontingent.toCSV();
-
-                saveToCSV(KONTINGENT_FILE, newKontingentCSV);
-
-            }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = 0; i < listOfMembers.size(); i++) {
+            String[] memberData = listOfMembers.get(i);
+            makeKontingentForMember(memberData);
         }
+    }
+
+    public void makeKontingentForMember(String[] memberData) {
+        String memberName = memberData[0];
+        int memberAge = Integer.parseInt(memberData[1]);
+        boolean membershipStatus = Boolean.parseBoolean(memberData[2]);
+        double price = 0;
+        boolean isPaid = false;
+        boolean inRestance = false;
+
+        Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
+        newKontingent.setKontingentPrice();
+        String newKontingentCSV = newKontingent.toCSV();
+
+        saveToCSV(KONTINGENT_FILE, newKontingentCSV);
     }
 
     public int calculateExpectedKontingent() {
         double expectedKontingent = 0;
 
-        String line = "";
-        String splitBy = ";";
+        ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        try {
-            //Parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader(MEMBER_FILE));
+        for (int i = 0; i < listOfMembers.size(); i++) {
+            String[] memberData = listOfMembers.get(i);
 
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
-                String[] member = line.split(splitBy);
+            String memberName = memberData[0];
+            int memberAge = Integer.parseInt(memberData[1]);
+            boolean membershipStatus = Boolean.parseBoolean(memberData[2]);
 
-                String memberName = member[0];
-                int memberAge = Integer.parseInt(member[1]);
-                boolean membershipStatus = Boolean.parseBoolean(member[2]);
+            Kontingent expKontingent = new Kontingent(memberName, memberAge, membershipStatus);
+            expKontingent.setKontingentPrice();
 
-                Kontingent expKontingent = new Kontingent(memberName, memberAge, membershipStatus);
-                expKontingent.setKontingentPrice();
+            expectedKontingent += expKontingent.getPrice();
 
-                expectedKontingent += expKontingent.getPrice();
 
-            }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
         return (int) Math.round(expectedKontingent);
     }
 
-    //--------------------
 
 
+
+
+    //TODO make boolean check if kontigent aligebel to set in restance in 'Kontingent class'
     public void memberToRestance(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
 
@@ -144,6 +101,7 @@ public class MembershipFee {
         }
         updateKontigentFile(allKontingents);
     }
+    //-------------
 
     public String getMembersInRestance() {
         List<Kontingent> allKontigents = getAllKontingents();

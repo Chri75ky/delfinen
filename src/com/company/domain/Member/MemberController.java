@@ -161,16 +161,16 @@ public class MemberController {
         compSwimmer.setBestTime(time);
     }
 
-    public String showCompSwimmerTimes() {
+    public void showCompSwimmerTimes() {
         for (CompSwimmer compSwimmer : compSwimmers) {
             if (compSwimmer.getBestTime() != 0) {
-                return compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline();
+                System.out.println(compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline());
             } else {
-                return compSwimmer.getFullName() + " har ingen registreret tid!";
+                System.out.println(compSwimmer.getFullName() + " har ingen registreret tid!");
             }
 
         }
-        return null;
+
     }
 
     public void addCompetition(Competition competition) {

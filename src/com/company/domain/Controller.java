@@ -417,6 +417,7 @@ public class Controller {
                 case "4":
                     //Viser tider for alle svømmere
                     showCompSwimmerTimes();
+                    break;
 
                 case "5":
                     //Viser nuværende konkurrencer i systemet
@@ -457,7 +458,7 @@ public class Controller {
     }
 
     private void showCompSwimmerTimes() {
-        ui.printMessage(m.showCompSwimmerTimes());
+        m.showCompSwimmerTimes();
     }
 
     private void setCompSwimmerStats() {

@@ -139,7 +139,7 @@ public class MemberController {
                 boolean membershipStatus;
                 membershipStatus = tokens[2].equalsIgnoreCase("true");
                 Disciplin discipline = Disciplin.valueOf(tokens[4]);
-                if (tokens.length < 5) {
+                if (tokens.length == 6) {
                     double bestTime = Double.parseDouble(tokens[5]);
                     CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline, bestTime);
                 } else {

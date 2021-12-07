@@ -15,7 +15,8 @@ public class UserInterface {
                 (4) Skift til konkurrencesvømmer
                 (5) Gå til kassere menu
                 (6) Gå til træner menu
-                (7) Se medlemmer""");
+                (7) Se medlemmer
+                (8) Gem ændringer til fil""");
     }
 
     public void cashierMenu() {
@@ -59,8 +60,5 @@ public class UserInterface {
         System.out.println(s);
     }
 
-    public void printArray(String[] s) {
-        System.out.println(s);
-    }
 
 }

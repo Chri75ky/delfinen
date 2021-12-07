@@ -60,11 +60,22 @@ public class Controller {
                     seeMembers();
                     break;
 
+                case "8":
+                    saveToFile();
+                    break;
+
                 default:
                     ui.userInputNotValid();
                     break;
             }
         }
+    }
+
+    private void saveToFile() throws FileNotFoundException {
+        m.addMembersToFile();
+        m.addCompSwimmerToFile();
+        m.addTopFiveToFile();
+        ui.printMessage("Gemt!");
     }
 
 
@@ -90,7 +101,7 @@ public class Controller {
             User user = new User(fullName, Role.TRÆNER);
             u.saveUser(user);
             ui.printMessage(user.toString());
-        }
+        } else ui.printMessage("Du har indtastet noget ugyldigt!");
     }
 
 
@@ -154,6 +165,7 @@ public class Controller {
                 if (choice == 1) {
                     CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BUTTERFLY);
                     m.saveCompSwimmer(compSwimmer);
+                    m.removeMember(member);
                     ui.printMessage(compSwimmer.toString());
                 } else if (choice == 2) {
                     CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.CRAWL);
@@ -167,7 +179,7 @@ public class Controller {
                     CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BREASTSTROKE);
                     m.saveCompSwimmer(compSwimmer);
                     ui.printMessage(compSwimmer.toString());
-                }
+                } else ui.printMessage("Du har indtastet noget ugyldigt!");
             }
         }
     }
@@ -229,14 +241,14 @@ public class Controller {
 
 
     private void topFive() {
-
+        ui.printMessage("De fem bedste tider indenfor alle konkurrencesvømmerne er: ");
+        m.readTopFiveFromFile();
 
     }
 
     // Gemmer medlemmer og svømmere ved lukning af program
     public void exit() throws FileNotFoundException {
-        m.addMembersToFile();
-        m.addCompSwimmerToFile();
+        saveToFile();
         isRunning = false;
     }
 

@@ -164,6 +164,8 @@ public class MemberController {
 
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
         compSwimmer.setBestTime(time);
+        compSwimmers.remove(compSwimmer);
+        newCompSwimmers.add(compSwimmer);
         if(bestTimes.size() < 5) {
             bestTimes.add(time);
         }

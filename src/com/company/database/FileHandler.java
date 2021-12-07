@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-
 public class FileHandler {
 
     public void clearFile(String filePath) {
@@ -19,7 +18,7 @@ public class FileHandler {
         }
     }
 
-    public ArrayList<String[]> getLinesInFile (String filePath) {
+    public ArrayList<String[]> getLinesInFile(String filePath) {
         ArrayList<String[]> linesInFile = new ArrayList<>();
 
         String line = "";

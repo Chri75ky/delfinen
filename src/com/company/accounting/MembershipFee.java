@@ -76,9 +76,6 @@ public class MembershipFee {
     }
 
 
-
-
-
     //TODO make boolean check if kontigent aligebel to set in restance in 'Kontingent class'
     public void memberToRestance(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
@@ -173,26 +170,14 @@ public class MembershipFee {
                 String memberName = member[0];
                 int memberAge = Integer.parseInt(member[1]);
                 boolean membershipStatus;
-                if (member[2].contentEquals("Aktivt medlemsskab")) {
-                    membershipStatus = true;
-                } else {
-                    membershipStatus = false;
-                }
+                membershipStatus = member[2].contentEquals("Aktivt medlemsskab");
 
                 double price = Double.parseDouble(member[3]);
                 boolean isPaid;
-                if (member[4].contentEquals("Betalt")) {
-                    isPaid = true;
-                } else {
-                    isPaid = false;
-                }
+                isPaid = member[4].contentEquals("Betalt");
 
                 boolean inRestance;
-                if (member[5].contentEquals("Restance")) {
-                    inRestance = true;
-                } else {
-                    inRestance = false;
-                }
+                inRestance = member[5].contentEquals("Restance");
 
                 Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
                 newKontingent.setKontingentPrice();
@@ -229,7 +214,7 @@ public class MembershipFee {
 
     public boolean memberExistInFile(String nameOfMember, String fileName) {
         boolean memberExists = false;
-        String file = new String();
+        String file = "";
 
         if (fileName.contains("mF")) {
             file = MEMBER_FILE;
@@ -255,7 +240,7 @@ public class MembershipFee {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  memberExists;
+        return memberExists;
     }
     //---------
 
@@ -273,7 +258,7 @@ public class MembershipFee {
 
     //TODO kan rykkes til filehandler
     public String showListOfMembers(String fileName) {
-        String file = new String();
+        String file = "";
         StringBuilder str = new StringBuilder();
 
         if (fileName.contains("mF")) {
@@ -315,12 +300,12 @@ public class MembershipFee {
         return memberExists;
     }
 
-    public String billsForMemberThatOwes (String nameOfMember) {
+    public String billsForMemberThatOwes(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
         StringBuilder str = new StringBuilder();
 
         str.append(nameOfMember + " har følgende manglende betalinger:\n");
-        String restanceOrNot = new String();
+        String restanceOrNot = "";
         int count = 1;
         for (Kontingent k : allKontingents) {
             if (k.getMemberName().contentEquals(nameOfMember)) {

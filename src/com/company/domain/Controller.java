@@ -106,7 +106,7 @@ public class Controller {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
         User user = u.findUser(name);
-        if(user != null){
+        if (user != null) {
             ui.printMessage("Velkommen " + user.getRole() + " " + name);
         } else {
             ui.printMessage("User not found");
@@ -153,7 +153,8 @@ public class Controller {
                         1) Butterfly
                         2) Crawl
                         3) Backcrawl
-                        4) Breaststroke\n""");
+                        4) Breaststroke
+                        """);
 
                 int choice = ui.userIntput();
                 ui.userInput();
@@ -253,8 +254,8 @@ public class Controller {
     public void chargeKontingent() {
         if (membershipFee.checkMemberFileForMembers() == true) {
             ui.printMessage("""
-                (1) Opret kontigent for enkeltstående medlem
-                (2) Opret kontigent for alle medlemmer""");
+                    (1) Opret kontigent for enkeltstående medlem
+                    (2) Opret kontigent for alle medlemmer""");
 
             String userInput = ui.userInput();
             switch (userInput) {
@@ -285,8 +286,8 @@ public class Controller {
     public void changeMemberContigentToRestance() {
         if (membershipFee.getAllKontingents().size() > 0) {
             ui.printMessage("""
-                (1) Sæt enkeltstående medlem i restance
-                (2) Sæt alle medlemmer i restance""");
+                    (1) Sæt enkeltstående medlem i restance
+                    (2) Sæt alle medlemmer i restance""");
 
             String userInput = ui.userInput();
             switch (userInput) {
@@ -342,8 +343,8 @@ public class Controller {
         String input = ui.userInput();
         switch (input) {
 
-            case "y","yes","Yes","Y" -> ui.printMessage(membershipFee.showListOfMembers(fileName));
-            case "n","no","No","N" -> ui.printMessage("Vender tilbage til kasseremenuen...\n");
+            case "y", "yes", "Yes", "Y" -> ui.printMessage(membershipFee.showListOfMembers(fileName));
+            case "n", "no", "No", "N" -> ui.printMessage("Vender tilbage til kasseremenuen...\n");
             default -> ui.userInputNotValid();
         }
     }
@@ -364,9 +365,9 @@ public class Controller {
 
     public void payBill(String nameOfMember) {
         ui.printMessage("""
-         Ønsker du at:
-         (1) Marker alle regninger for medlemmet som betalt
-         (2) marker enkel regning for medlemmet som betalt""");
+                Ønsker du at:
+                (1) Marker alle regninger for medlemmet som betalt
+                (2) marker enkel regning for medlemmet som betalt""");
 
         String userInput = ui.userInput();
         switch (userInput) {

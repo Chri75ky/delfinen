@@ -51,7 +51,7 @@ public class UserInterface {
     }
 
     public double userDoubleput() {
-        return  scanner.nextDouble();
+        return scanner.nextDouble();
     }
 
     public void printMessage(String s) {

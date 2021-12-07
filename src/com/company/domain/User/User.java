@@ -3,8 +3,8 @@ package com.company.domain.User;
 
 public class User {
 
-    private String fullName;
-    private Role role;
+    private final String fullName;
+    private final Role role;
 
     //konstruktør
     public User(String fullName, Role role) {

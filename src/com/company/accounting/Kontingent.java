@@ -10,7 +10,7 @@ public class Kontingent {
     private boolean isPaid;
     private boolean inRestance;
 
-    public Kontingent (String memberName, int memberAge, boolean membershipStatus, double price, boolean isPaid, boolean inRestance) {
+    public Kontingent(String memberName, int memberAge, boolean membershipStatus, double price, boolean isPaid, boolean inRestance) {
         this.memberName = memberName;
         this.memberAge = memberAge;
         this.membershipStatus = membershipStatus;
@@ -19,7 +19,7 @@ public class Kontingent {
         this.inRestance = inRestance;
     }
 
-    public Kontingent (String memberName, int memberAge, boolean membershipStatus) {
+    public Kontingent(String memberName, int memberAge, boolean membershipStatus) {
         this.memberName = memberName;
         this.memberAge = memberAge;
         this.membershipStatus = membershipStatus;
@@ -51,7 +51,7 @@ public class Kontingent {
     }
 
     private void setPrice(double price, double discount) {
-        this.price = price - ((price/100)*discount);
+        this.price = price - ((price / 100) * discount);
     }
 
     public double getPrice() {
@@ -80,21 +80,21 @@ public class Kontingent {
 
     public String toCSV() {
 
-        String membershipStatusText = new String();
+        String membershipStatusText = "";
         if (this.membershipStatus == true) {
             membershipStatusText = "Aktivt medlemsskab";
         } else {
             membershipStatusText = "Passivt medlemsskab";
         }
 
-        String isPaidText = new String();
+        String isPaidText = "";
         if (this.isPaid == true) {
             isPaidText = "Betalt";
         } else {
             isPaidText = "Ikke betalt";
         }
 
-        String inRestanceText = new String();
+        String inRestanceText = "";
         if (this.inRestance == true) {
             inRestanceText = "Restance";
         } else {

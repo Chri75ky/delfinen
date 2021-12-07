@@ -101,7 +101,6 @@ public class MemberController {
     }
 
 
-
     /* Kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
      Når medlemmer bliver indlæst fra fil bliver de også skabt som Member objekter igen og sat ind i arrayListen.
      Så nu burde det være muligt at kunne arbejde med members selv efter et reboot af programmet. Så længe at
@@ -116,11 +115,7 @@ public class MemberController {
                 String name = tokens[0];
                 int age = Integer.parseInt(tokens[1]);
                 boolean membershipStatus;
-                if(tokens[2].equalsIgnoreCase("true")) {
-                    membershipStatus = true;
-                } else {
-                    membershipStatus = false;
-                }
+                membershipStatus = tokens[2].equalsIgnoreCase("true");
 
                 Member currentMember = new Member(name, age, membershipStatus);
                 members.add(currentMember);
@@ -139,11 +134,7 @@ public class MemberController {
                 String name = tokens[0];
                 int age = Integer.parseInt(tokens[1]);
                 boolean membershipStatus;
-                if(tokens[2].equalsIgnoreCase("true")) {
-                    membershipStatus = true;
-                } else {
-                    membershipStatus = false;
-                }
+                membershipStatus = tokens[2].equalsIgnoreCase("true");
                 Disciplin discipline = Disciplin.valueOf(tokens[4]);
 
                 CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline);
@@ -162,13 +153,14 @@ public class MemberController {
         }
         return null;
     }
+
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
         compSwimmer.setBestTime(time);
     }
 
     public String showCompSwimmerTimes() {
         for (CompSwimmer compSwimmer : compSwimmers) {
-            if(compSwimmer.getBestTime() != 0) {
+            if (compSwimmer.getBestTime() != 0) {
                 return compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline();
             } else {
                 return compSwimmer.getFullName() + " har ingen registreret tid!";

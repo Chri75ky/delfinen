@@ -11,9 +11,10 @@ public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
     private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
+    //newCompSwimmers er konkurrencesvømmere som er blevet tildelt en tid af deres træner
     private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
     private final ArrayList<Competition> competitions = new ArrayList<>();
-    private final ArrayList<Double> bestTimes = new ArrayList<>();
+    CompSwimmer[] topFiveCompSwimmers = new CompSwimmer[5];
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -163,18 +164,16 @@ public class MemberController {
 
     // Sætter en svømmers tid og tilføjer dem til den anden ArrayListe så de bliver tilføjet til fil, med den nye tid
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
-        compSwimmer.setBestTime(time);
+        compSwimmer.setTime(time);
         compSwimmers.remove(compSwimmer);
         newCompSwimmers.add(compSwimmer);
-        if(bestTimes.size() < 5) {
-            bestTimes.add(time);
-        }
     }
+
     // Viser de forskellige tider for svømmere
     public void showCompSwimmerTimes() {
         for (CompSwimmer compSwimmer : compSwimmers) {
-            if (compSwimmer.getBestTime() != 0) {
-                System.out.println(compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline());
+            if (compSwimmer.getTime() != 0) {
+                System.out.println(compSwimmer.getFullName() + " " + compSwimmer.getTime() + " sek. " + compSwimmer.getDiscipline());
             } else {
                 System.out.println(compSwimmer.getFullName() + " har ingen registreret tid!");
             }
@@ -196,7 +195,13 @@ public class MemberController {
         }
     }
 
-    public String getTopFive() {
-       return bestTimes.toString();
+    //denne metode sammenligner? sorterer? svømmerne fra arraylisten og putter de bedste tider ind i arayet
+    //UWU
+    public void getTopFiveList() {
+        for(int i=0; i < newCompSwimmers.size(); i++) {
+
+
+        }
+
     }
 }

@@ -229,8 +229,10 @@ public class Controller {
 
 
     private void topFive() {
-        ui.printMessage(m.getTopFive());
+
+
     }
+
     // Gemmer medlemmer og svømmere ved lukning af program
     public void exit() throws FileNotFoundException {
         m.addMembersToFile();
@@ -462,7 +464,7 @@ public class Controller {
             double time = ui.userDoubleput();
             ui.userInput();
             m.setCompSwimmerStats(swimmerToSetTime, time);
-            System.out.println(swimmerToSetTime.getFullName() + " " + swimmerToSetTime.getBestTime() + " sek. " + swimmerToSetTime.getDiscipline());
+            System.out.println(swimmerToSetTime.getFullName() + " " + swimmerToSetTime.getTime() + " sek. " + swimmerToSetTime.getDiscipline());
 
         } else {
             ui.printMessage("Svømmer ikke fundet!");

@@ -78,6 +78,16 @@ public class Kontingent {
         this.isPaid = true;
     }
 
+    public boolean eligibleForRestance() {
+        boolean eligible = false;
+
+        if (this.inRestance == false && this.isPaid == false) {
+            eligible = true;
+        }
+
+        return eligible;
+    }
+
     public String toCSV() {
 
         String membershipStatusText = "";
@@ -107,7 +117,7 @@ public class Kontingent {
                 membershipStatusText + ";" +
                 price + ";" +
                 isPaidText + ";" +
-                inRestanceText;
+                inRestanceText + "\n";
 
     }
 

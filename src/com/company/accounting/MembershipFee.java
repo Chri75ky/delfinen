@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//TODO evt. nogen af metoderne (især dem der return boolean) kan måske sammensættes hvis man laver et par ændringer så der kommer mindre kode
-//TODO evt. lav en/flere sort metoder der laver list af members i alfabetisk rækkefølge/hvem der skylder mest
-
-
 public class MembershipFee {
     FileHandler fh = new FileHandler();
     private static final String MEMBER_FILE = "data/Medlemmer.csv";
@@ -50,7 +46,7 @@ public class MembershipFee {
         newKontingent.setKontingentPrice();
         String newKontingentCSV = newKontingent.toCSV();
 
-        saveToCSV(KONTINGENT_FILE, newKontingentCSV);
+        fh.saveToCSV(KONTINGENT_FILE, newKontingentCSV);
     }
 
     public int calculateExpectedKontingent() {
@@ -75,13 +71,11 @@ public class MembershipFee {
         return (int) Math.round(expectedKontingent);
     }
 
-
-    //TODO make boolean check if kontigent aligebel to set in restance in 'Kontingent class'
     public void memberToRestance(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getInRestance() == false && kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.getIsPaid() == false) {
+            if (kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.eligibleForRestance()) {
                 kontigent.setInRestance();
             }
         }
@@ -92,13 +86,12 @@ public class MembershipFee {
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getInRestance() == false && kontigent.getIsPaid() == false) {
+            if (kontigent.eligibleForRestance()) {
                 kontigent.setInRestance();
             }
         }
         updateKontigentFile(allKontingents);
     }
-    //-------------
 
     public String getMembersInRestance() {
         List<Kontingent> allKontigents = getAllKontingents();
@@ -124,7 +117,7 @@ public class MembershipFee {
         List<Kontingent> allKontingentsWithoutPaid = new ArrayList<>();
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getIsPaid() != true) {
+            if (!kontigent.getIsPaid()) {
                 allKontingentsWithoutPaid.add(kontigent);
             }
         }
@@ -137,170 +130,115 @@ public class MembershipFee {
     }
 
     public void saveKontigentListToFile(List<Kontingent> kontigents) {
+        StringBuilder str = new StringBuilder();
+
         for (Kontingent k : kontigents) {
             String kontingentCSV = k.toCSV();
-            saveToCSV(KONTINGENT_FILE, kontingentCSV);
+            str.append(kontingentCSV);
         }
+
+        fh.saveToCSV(KONTINGENT_FILE, str.toString());
     }
 
-    //TODO Kan måske rykkes til filehandler
-    private void saveToCSV(String file, String csvLine) {
-        try {
-            PrintStream ps = new PrintStream(new FileOutputStream(file, true));
-            ps.append(csvLine).append("\n");
-            ps.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("The file does not exist");
-        }
-    }
-
-    //TODO kan måske rykkes til filehandler
     public List<Kontingent> getAllKontingents() {
+        ArrayList<String[]> listOfKontingents = fh.getLinesInFile(KONTINGENT_FILE);
         List<Kontingent> allKontingents = new ArrayList<>();
-        String line = "";
-        String splitBy = ";";
 
-        try {
-            //Parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader(KONTINGENT_FILE));
+        for (int i = 0; i < listOfKontingents.size(); i++) {
+            String[] kontingentData = listOfKontingents.get(i);
 
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
-                String[] member = line.split(splitBy);
+            String memberName = kontingentData[0];
 
-                String memberName = member[0];
-                int memberAge = Integer.parseInt(member[1]);
-                boolean membershipStatus;
-                membershipStatus = member[2].contentEquals("Aktivt medlemsskab");
+            int memberAge = Integer.parseInt(kontingentData[1]);
 
-                double price = Double.parseDouble(member[3]);
-                boolean isPaid;
-                isPaid = member[4].contentEquals("Betalt");
-
-                boolean inRestance;
-                inRestance = member[5].contentEquals("Restance");
-
-                Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
-                newKontingent.setKontingentPrice();
-                allKontingents.add(newKontingent);
+            boolean membershipStatus;
+            if (kontingentData[2].contentEquals("Aktivt medlemsskab")) {
+                membershipStatus = true;
+            } else {
+                membershipStatus = false;
             }
-            br.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            double price = Double.parseDouble(kontingentData[3]);
+
+            boolean isPaid;
+            if (kontingentData[4].contentEquals("Betalt")) {
+                isPaid = true;
+            } else {
+                isPaid = false;
+            }
+
+            boolean inRestance;
+
+            if (kontingentData[5].contentEquals("Restance")) {
+                inRestance = true;
+            } else {
+                inRestance = false;
+            }
+
+            Kontingent newKontingent = new Kontingent(memberName, memberAge, membershipStatus, price, isPaid, inRestance);
+            newKontingent.setKontingentPrice();
+            allKontingents.add(newKontingent);
+
         }
-
         return allKontingents;
     }
 
-    //TODO kan rykkes til filehandler og måske sammensættes
     public boolean checkMemberFileForMembers() {
-        boolean membersInFile = false;
-
-        String line = "";
-        String splitBy = ";";
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(MEMBER_FILE));
-            if ((line = br.readLine()) != null) {
-                membersInFile = true;
-            }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        boolean membersInFile = fh.checkFileForLines(MEMBER_FILE);
         return membersInFile;
     }
 
     public boolean memberExistInFile(String nameOfMember, String fileName) {
-        boolean memberExists = false;
-        String file = "";
+        String filePath = new String();
 
         if (fileName.contains("mF")) {
-            file = MEMBER_FILE;
+            filePath = MEMBER_FILE;
         } else if (fileName.contains("kF")) {
-            file = KONTINGENT_FILE;
+            filePath = KONTINGENT_FILE;
         }
 
-        String line = "";
-        String splitBy = ";";
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
-                String[] member = line.split(splitBy);
-
-                if (member[0].contentEquals(nameOfMember)) {
-                    memberExists = true;
-                }
-            }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        boolean memberExists = fh.checkFileForName(filePath, nameOfMember);
         return memberExists;
     }
-    //---------
 
     public boolean checkKontingentsForPaid() {
         List<Kontingent> allKontingents = getAllKontingents();
-        boolean kontigentPaid = false;
+        boolean aKontigentIsPaid = false;
 
         for (Kontingent kontigent : allKontingents) {
             if (kontigent.getIsPaid() == true) {
-                kontigentPaid = true;
+                aKontigentIsPaid = true;
             }
         }
-        return kontigentPaid;
+        return aKontigentIsPaid;
     }
 
-    //TODO kan rykkes til filehandler
     public String showListOfMembers(String fileName) {
-        String file = "";
-        StringBuilder str = new StringBuilder();
+        String filePath = new String();
 
         if (fileName.contains("mF")) {
-            file = MEMBER_FILE;
+            filePath = MEMBER_FILE;
         } else if (fileName.contains("kF")) {
-            file = KONTINGENT_FILE;
+            filePath = KONTINGENT_FILE;
         }
-
-        int count = 1;
-        String line = "";
-        String splitBy = ";";
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            if ((line = br.readLine()) != null) {
-                String[] member = line.split(splitBy);
-                str.append("(" + count + ") " + member[0] + "\n");
-                count++;
-
-            }
-            br.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str.toString();
+        String namesInFile = fh.getNamesInFile(filePath);
+        return namesInFile;
     }
 
     public boolean memberExistsAndOwes(String nameOfMember) {
-        boolean memberExists = false;
+        boolean memberExistsAndOwes = false;
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent kontigent : allKontingents) {
             if (kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.getIsPaid() == false) {
-                memberExists = true;
+                memberExistsAndOwes = true;
             }
         }
 
-        return memberExists;
+        return memberExistsAndOwes;
     }
 
-    public String billsForMemberThatOwes(String nameOfMember) {
+    public String billsForMemberThatOwes (String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
         StringBuilder str = new StringBuilder();
 
@@ -308,7 +246,7 @@ public class MembershipFee {
         String restanceOrNot = "";
         int count = 1;
         for (Kontingent k : allKontingents) {
-            if (k.getMemberName().contentEquals(nameOfMember)) {
+            if (k.getMemberName().contentEquals(nameOfMember) && !k.getIsPaid()) {
 
                 if (k.getInRestance() == false) {
                     restanceOrNot = "i kontigent";

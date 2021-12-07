@@ -326,7 +326,7 @@ public class Controller {
 
     public void deleteAllPaidKontingentsAndRestance() {
 
-        if (membershipFee.checkKontingentsForPaid() == true) {
+        if (membershipFee.checkKontingentsForPaid()) {
             membershipFee.deleteAllPaidKontingentsAndRestanceInFile();
             ui.printMessage("De betalte kontigent eller restance regninger er fjernet fra systemet\n");
         } else {

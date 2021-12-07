@@ -18,7 +18,7 @@ public class FileHandler {
     public ArrayList<String[]> getLinesInFile(String filePath) {
         ArrayList<String[]> linesInFile = new ArrayList<>();
 
-        String line = "";
+        String line;
         String splitBy = ";";
 
         try {
@@ -50,12 +50,9 @@ public class FileHandler {
     public boolean checkFileForLines(String filePath) {
         boolean fileHasLines = false;
 
-        String line = "";
-        String splitBy = ";";
-
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-            if ((line = br.readLine()) != null) {
+            if (br.readLine() != null) {
                 fileHasLines = true;
             }
             br.close();
@@ -69,7 +66,7 @@ public class FileHandler {
     public boolean checkFileForName(String filePath, String name) {
         boolean nameExistsInFile = false;
 
-        String line = "";
+        String line;
         String splitBy = ";";
 
         try {
@@ -94,7 +91,7 @@ public class FileHandler {
         StringBuilder str = new StringBuilder();
 
         int count = 1;
-        String line = "";
+        String line;
         String splitBy = ";";
 
         try {

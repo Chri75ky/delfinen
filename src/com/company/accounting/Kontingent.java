@@ -1,7 +1,5 @@
 package com.company.accounting;
 
-import com.company.colour.Colour;
-
 public class Kontingent {
     private final String memberName;
     private final int memberAge;
@@ -26,7 +24,7 @@ public class Kontingent {
     }
 
     public void setKontingentPrice() {
-        if (this.membershipStatus == false) {
+        if (!this.membershipStatus) {
             // Passivt medlemskab
             setPrice(500);
         } else {
@@ -81,7 +79,7 @@ public class Kontingent {
     public boolean eligibleForRestance() {
         boolean eligible = false;
 
-        if (this.inRestance == false && this.isPaid == false) {
+        if (!this.inRestance && !this.isPaid) {
             eligible = true;
         }
 
@@ -90,22 +88,22 @@ public class Kontingent {
 
     public String toCSV() {
 
-        String membershipStatusText = "";
-        if (this.membershipStatus == true) {
+        String membershipStatusText;
+        if (this.membershipStatus) {
             membershipStatusText = "Aktivt medlemsskab";
         } else {
             membershipStatusText = "Passivt medlemsskab";
         }
 
-        String isPaidText = "";
-        if (this.isPaid == true) {
+        String isPaidText;
+        if (this.isPaid) {
             isPaidText = "Betalt";
         } else {
             isPaidText = "Ikke betalt";
         }
 
-        String inRestanceText = "";
-        if (this.inRestance == true) {
+        String inRestanceText;
+        if (this.inRestance) {
             inRestanceText = "Restance";
         } else {
             inRestanceText = "Kontigent";

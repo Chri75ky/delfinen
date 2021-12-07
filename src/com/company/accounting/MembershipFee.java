@@ -2,7 +2,6 @@ package com.company.accounting;
 
 import com.company.database.FileHandler;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,7 @@ public class MembershipFee {
     public void chargeMember(String nameOfMember) {
         ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        for (int i = 0; i < listOfMembers.size(); i++) {
-            String[] memberData = listOfMembers.get(i);
-
+        for (String[] memberData : listOfMembers) {
             if (memberData[0].contentEquals(nameOfMember)) {
                 makeKontingentForMember(memberData);
             }
@@ -28,8 +25,7 @@ public class MembershipFee {
     public void chargeAllMembers() {
         ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        for (int i = 0; i < listOfMembers.size(); i++) {
-            String[] memberData = listOfMembers.get(i);
+        for (String[] memberData : listOfMembers) {
             makeKontingentForMember(memberData);
         }
     }
@@ -49,14 +45,17 @@ public class MembershipFee {
         fh.saveToCSV(KONTINGENT_FILE, newKontingentCSV);
     }
 
+    public int amountOfMembersInFile() {
+        ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
+        return listOfMembers.size();
+    }
+
     public int calculateExpectedKontingent() {
         double expectedKontingent = 0;
 
         ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
-        for (int i = 0; i < listOfMembers.size(); i++) {
-            String[] memberData = listOfMembers.get(i);
-
+        for (String[] memberData : listOfMembers) {
             String memberName = memberData[0];
             int memberAge = Integer.parseInt(memberData[1]);
             boolean membershipStatus = Boolean.parseBoolean(memberData[2]);
@@ -99,7 +98,7 @@ public class MembershipFee {
 
         int index = 1;
         for (Kontingent kontigent : allKontigents) {
-            if (kontigent.getInRestance() == true && kontigent.getIsPaid() == false) {
+            if (kontigent.getInRestance() && !kontigent.getIsPaid()) {
                 str.append("(" + index + ") " + kontigent.getMemberName() + " har " + kontigent.getPrice() + " DKK i restance\n");
                 index++;
             }
@@ -144,9 +143,7 @@ public class MembershipFee {
         ArrayList<String[]> listOfKontingents = fh.getLinesInFile(KONTINGENT_FILE);
         List<Kontingent> allKontingents = new ArrayList<>();
 
-        for (int i = 0; i < listOfKontingents.size(); i++) {
-            String[] kontingentData = listOfKontingents.get(i);
-
+        for (String[] kontingentData : listOfKontingents) {
             String memberName = kontingentData[0];
 
             int memberAge = Integer.parseInt(kontingentData[1]);
@@ -184,12 +181,11 @@ public class MembershipFee {
     }
 
     public boolean checkMemberFileForMembers() {
-        boolean membersInFile = fh.checkFileForLines(MEMBER_FILE);
-        return membersInFile;
+        return fh.checkFileForLines(MEMBER_FILE);
     }
 
     public boolean memberExistInFile(String nameOfMember, String fileName) {
-        String filePath = new String();
+        String filePath = "";
 
         if (fileName.contains("mF")) {
             filePath = MEMBER_FILE;
@@ -197,8 +193,7 @@ public class MembershipFee {
             filePath = KONTINGENT_FILE;
         }
 
-        boolean memberExists = fh.checkFileForName(filePath, nameOfMember);
-        return memberExists;
+        return fh.checkFileForName(filePath, nameOfMember);
     }
 
     public boolean checkKontingentsForPaid() {
@@ -206,23 +201,23 @@ public class MembershipFee {
         boolean aKontigentIsPaid = false;
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getIsPaid() == true) {
+            if (kontigent.getIsPaid()) {
                 aKontigentIsPaid = true;
+                break;
             }
         }
         return aKontigentIsPaid;
     }
 
     public String showListOfMembers(String fileName) {
-        String filePath = new String();
+        String filePath = "";
 
         if (fileName.contains("mF")) {
             filePath = MEMBER_FILE;
         } else if (fileName.contains("kF")) {
             filePath = KONTINGENT_FILE;
         }
-        String namesInFile = fh.getNamesInFile(filePath);
-        return namesInFile;
+        return fh.getNamesInFile(filePath);
     }
 
     public boolean memberExistsAndOwes(String nameOfMember) {
@@ -230,7 +225,7 @@ public class MembershipFee {
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.getIsPaid() == false) {
+            if (kontigent.getMemberName().contentEquals(nameOfMember) && !kontigent.getIsPaid()) {
                 memberExistsAndOwes = true;
             }
         }
@@ -243,12 +238,12 @@ public class MembershipFee {
         StringBuilder str = new StringBuilder();
 
         str.append(nameOfMember + " har følgende manglende betalinger:\n");
-        String restanceOrNot = "";
+        String restanceOrNot;
         int count = 1;
         for (Kontingent k : allKontingents) {
             if (k.getMemberName().contentEquals(nameOfMember) && !k.getIsPaid()) {
 
-                if (k.getInRestance() == false) {
+                if (!k.getInRestance()) {
                     restanceOrNot = "i kontigent";
                 } else {
                     restanceOrNot = "i restance";
@@ -267,7 +262,7 @@ public class MembershipFee {
         List<Kontingent> allKontingents = getAllKontingents();
 
         for (Kontingent k : allKontingents) {
-            if (k.getMemberName().contentEquals(nameOfMember) && k.getIsPaid() == false) {
+            if (k.getMemberName().contentEquals(nameOfMember) && !k.getIsPaid()) {
                 k.isPaid();
             }
         }

@@ -12,7 +12,6 @@ import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Controller {
     boolean isRunning = true;
@@ -247,7 +246,7 @@ public class Controller {
 
 
     public void chargeKontingent() {
-        if (membershipFee.checkMemberFileForMembers() == true) {
+        if (membershipFee.checkMemberFileForMembers()) {
             ui.printMessage("""
                     (1) Opret kontigent for enkeltstående medlem
                     (2) Opret kontigent for alle medlemmer""");
@@ -256,7 +255,11 @@ public class Controller {
             switch (userInput) {
 
                 case "1" -> chargeMember();
-                case "2" -> membershipFee.chargeAllMembers();
+                case "2" -> {
+                    membershipFee.chargeAllMembers();
+                    int amountOfMembers = membershipFee.amountOfMembersInFile();
+                    ui.printMessage("Kontingent oprettet for " + amountOfMembers + " medlemmer\n");
+                }
                 default -> ui.userInputNotValid();
             }
         } else {

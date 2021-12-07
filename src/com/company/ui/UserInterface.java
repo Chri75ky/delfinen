@@ -59,7 +59,8 @@ public class UserInterface {
         System.out.println(s);
     }
 
-    public void printMessage(StringBuilder s) {
+    public void printArray(String[] s) {
         System.out.println(s);
     }
+
 }

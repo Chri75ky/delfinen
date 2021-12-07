@@ -90,9 +90,9 @@ public class Kontingent {
 
         String membershipStatusText;
         if (this.membershipStatus) {
-            membershipStatusText = "Aktivt medlemsskab";
+            membershipStatusText = "Aktivt medlemskab";
         } else {
-            membershipStatusText = "Passivt medlemsskab";
+            membershipStatusText = "Passivt medlemskab";
         }
 
         String isPaidText;
@@ -106,7 +106,7 @@ public class Kontingent {
         if (this.inRestance) {
             inRestanceText = "Restance";
         } else {
-            inRestanceText = "Kontigent";
+            inRestanceText = "Kontingent";
         }
 
 

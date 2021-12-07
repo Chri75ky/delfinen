@@ -11,9 +11,10 @@ public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
     private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
+    //newCompSwimmers er konkurrencesvømmere som er blevet tildelt en tid af deres træner
     private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
     private final ArrayList<Competition> competitions = new ArrayList<>();
-    private final ArrayList<Double> bestTimes = new ArrayList<>();
+    CompSwimmer[] topFiveCompSwimmers = new CompSwimmer[5];
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -42,7 +43,7 @@ public class MemberController {
 
     }
 
-    //tilføjer medlem til arrayList
+
     public void saveMember(Member member) {
         newMembers.add(member);
     }
@@ -50,7 +51,7 @@ public class MemberController {
     public void saveCompSwimmer(CompSwimmer compSwimmer) {
         newCompSwimmers.add(compSwimmer);
     }
-
+    // Finder og returner et medlem fra ArrayList
     public Member findMember(String name) {
         for (Member member : members) {
             if (member.getFullName().equals(name)) {
@@ -59,7 +60,7 @@ public class MemberController {
         }
         return null;
     }
-
+    // Laver en CSV formateret String af ArrayList af medlemmer
     public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
 
@@ -69,7 +70,7 @@ public class MemberController {
 
         return sb.toString();
     }
-
+    // Samme som til member ArrayList
     public String compSwimmerToCSV() {
         StringBuilder sb = new StringBuilder();
 
@@ -79,7 +80,7 @@ public class MemberController {
 
         return sb.toString();
     }
-
+    // Læser medlemmer fra deres fil og viser til bruger
     public void readMembersFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
             String str;
@@ -91,7 +92,7 @@ public class MemberController {
             System.out.println("File Read Error");
         }
     }
-
+    // Samme som medlemmer
     public void readCompSwimmersFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/KonkurrenceSvømmer.csv"))) {
             String str;
@@ -105,11 +106,10 @@ public class MemberController {
     }
 
 
-    /* Kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
+    /* Del af kode fundet her : https://stackoverflow.com/questions/10960213/how-can-i-read-comma-separated-values-from-a-text-file-in-java
      Når medlemmer bliver indlæst fra fil bliver de også skabt som Member objekter igen og sat ind i arrayListen.
      Så nu burde det være muligt at kunne arbejde med members selv efter et reboot af programmet. Så længe at
-      metoden er blevet kørt. Der er mulighed for at kunne gøre metoden mindre og måske få tilføjet at den selv indlæser
-      ved start af programmet.
+      metoden er blevet kørt.
      */
     public void loadMembersFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
@@ -140,7 +140,7 @@ public class MemberController {
                 boolean membershipStatus;
                 membershipStatus = tokens[2].equalsIgnoreCase("true");
                 Disciplin discipline = Disciplin.valueOf(tokens[4]);
-                if (tokens.length < 5) {
+                if (tokens.length == 6) {
                     double bestTime = Double.parseDouble(tokens[5]);
                     CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline, bestTime);
                 } else {
@@ -162,17 +162,18 @@ public class MemberController {
         return null;
     }
 
+    // Sætter en svømmers tid og tilføjer dem til den anden ArrayListe så de bliver tilføjet til fil, med den nye tid
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
-        compSwimmer.setBestTime(time);
-        if(bestTimes.size() < 5) {
-            bestTimes.add(time);
-        }
+        compSwimmer.setTime(time);
+        compSwimmers.remove(compSwimmer);
+        newCompSwimmers.add(compSwimmer);
     }
 
+    // Viser de forskellige tider for svømmere
     public void showCompSwimmerTimes() {
         for (CompSwimmer compSwimmer : compSwimmers) {
-            if (compSwimmer.getBestTime() != 0) {
-                System.out.println(compSwimmer.getFullName() + " " + compSwimmer.getBestTime() + " sek. " + compSwimmer.getDiscipline());
+            if (compSwimmer.getTime() != 0) {
+                System.out.println(compSwimmer.getFullName() + " " + compSwimmer.getTime() + " sek. " + compSwimmer.getDiscipline());
             } else {
                 System.out.println(compSwimmer.getFullName() + " har ingen registreret tid!");
             }
@@ -184,6 +185,8 @@ public class MemberController {
     public void addCompetition(Competition competition) {
         competitions.add(competition);
     }
+
+    // Viser alle de eksisterende konkurrencer
     public String showCompetitions() {
         if (competitions.size() != 0) {
             return competitions.toString();
@@ -192,7 +195,13 @@ public class MemberController {
         }
     }
 
-    public String getTopFive() {
-       return bestTimes.toString();
+    //denne metode sammenligner? sorterer? svømmerne fra arraylisten og putter de bedste tider ind i arayet
+    //UWU
+    public void getTopFiveList() {
+        for(int i=0; i < newCompSwimmers.size(); i++) {
+
+
+        }
+
     }
 }

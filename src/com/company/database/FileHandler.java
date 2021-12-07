@@ -24,7 +24,7 @@ public class FileHandler {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
 
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
+            while ((line = br.readLine()) != null) {   // Returns a Boolean value
                 String[] lineSeperated = line.split(splitBy);
                 linesInFile.add(lineSeperated);
             }
@@ -72,7 +72,7 @@ public class FileHandler {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
 
-            while ((line = br.readLine()) != null) {   //Returns a Boolean value
+            while ((line = br.readLine()) != null) {   // Returns a Boolean value
                 String[] lineInFile = line.split(splitBy);
 
                 if (lineInFile[0].contentEquals(name)) {

@@ -1,18 +1,22 @@
 package com.company.domain.Member;
 
 public class CompSwimmer extends Member {
-    private final Disciplin discipline;
-    private double bestTime;
+    private Disciplin discipline;
+    private double time;
 
     public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline) {
         super(fullName, age, activeMembership);
         this.discipline = discipline;
     }
 
-    public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline, double bestTime) {
+    public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline, double time) {
         super(fullName, age, activeMembership);
         this.discipline = discipline;
-        this.bestTime = bestTime;
+        this.time = time;
+    }
+
+    public CompSwimmer() {
+        super();
     }
 
     public String toCSV() {
@@ -21,19 +25,19 @@ public class CompSwimmer extends Member {
                 activeMembership + ";" +
                 team + ";" +
                 discipline + ";" +
-                bestTime;
+                time;
     }
 
     public Disciplin getDiscipline() {
         return discipline;
     }
 
-    public double getBestTime() {
-        return bestTime;
+    public double getTime() {
+        return time;
     }
 
-    public void setBestTime(double bestTime) {
-        this.bestTime = bestTime;
+    public void setTime(double time) {
+        this.time = time;
     }
 
     @Override
@@ -43,6 +47,15 @@ public class CompSwimmer extends Member {
                 activeMembership + ";" +
                 team + ";" +
                 discipline + ";" +
-                bestTime;
+                time;
+    }
+
+
+    public int compareTo(CompSwimmer otherCompSwimmer) {
+        if (this.time < otherCompSwimmer.time) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }

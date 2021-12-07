@@ -7,7 +7,12 @@ public class CompSwimmer extends Member {
     public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline) {
         super(fullName, age, activeMembership);
         this.discipline = discipline;
-        //TODO Tilføj en måde at sætte en træner på svømmeren ud fra deres alder (under 18 vs 18 og over)
+    }
+
+    public CompSwimmer(String fullName, int age, boolean activeMembership, Disciplin discipline, double bestTime) {
+        super(fullName, age, activeMembership);
+        this.discipline = discipline;
+        this.bestTime = bestTime;
     }
 
     public String toCSV() {
@@ -15,7 +20,8 @@ public class CompSwimmer extends Member {
                 age + ";" +
                 activeMembership + ";" +
                 team + ";" +
-                discipline;
+                discipline + ";" +
+                bestTime;
     }
 
     public Disciplin getDiscipline() {
@@ -36,6 +42,7 @@ public class CompSwimmer extends Member {
                 age + ";" +
                 activeMembership + ";" +
                 team + ";" +
-                discipline;
+                discipline + ";" +
+                bestTime;
     }
 }

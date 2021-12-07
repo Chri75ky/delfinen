@@ -236,12 +236,7 @@ public class Controller {
 
 
     private void topFive() {
-        String[] topFive = new String[0];
-
-        if (topFive != null) {
-            ui.printMessage("""
-                    Det her er top 5 svømmere udfra de indtastede resultater""");
-        }
+        ui.printMessage(m.getTopFive());
     }
 
     public void exit() throws FileNotFoundException {

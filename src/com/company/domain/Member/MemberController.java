@@ -13,6 +13,7 @@ public class MemberController {
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
     private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
     private final ArrayList<Competition> competitions = new ArrayList<>();
+    private final ArrayList<Double> bestTimes = new ArrayList<>();
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -139,9 +140,13 @@ public class MemberController {
                 boolean membershipStatus;
                 membershipStatus = tokens[2].equalsIgnoreCase("true");
                 Disciplin discipline = Disciplin.valueOf(tokens[4]);
-
-                CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline);
-                compSwimmers.add(currentCompSwimmer);
+                if (tokens.length < 5) {
+                    double bestTime = Double.parseDouble(tokens[5]);
+                    CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline, bestTime);
+                } else {
+                    CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline);
+                    compSwimmers.add(currentCompSwimmer);
+                }
             }
         } catch (IOException e) {
             System.out.println("File Read Error");
@@ -159,6 +164,9 @@ public class MemberController {
 
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
         compSwimmer.setBestTime(time);
+        if(bestTimes.size() < 5) {
+            bestTimes.add(time);
+        }
     }
 
     public void showCompSwimmerTimes() {
@@ -182,5 +190,9 @@ public class MemberController {
         } else {
             return null;
         }
+    }
+
+    public String getTopFive() {
+       return bestTimes.toString();
     }
 }

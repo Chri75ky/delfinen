@@ -1,5 +1,7 @@
 package com.company.domain.Member;
 
+import com.company.domain.Competition;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,7 @@ public class MemberController {
     private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
     private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
+    private final ArrayList<Competition> competitions = new ArrayList<>();
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
@@ -168,5 +171,16 @@ public class MemberController {
 
         }
         return null;
+    }
+
+    public void addCompetition(Competition competition) {
+        competitions.add(competition);
+    }
+    public String showCompetitions() {
+        if (competitions.size() != 0) {
+            return competitions.toString();
+        } else {
+            return null;
+        }
     }
 }

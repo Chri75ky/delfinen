@@ -405,8 +405,8 @@ public class Controller {
                     break;
 
                 case "2":
-                    //Kigger på konkurrencer for de forskellige svømmere
-
+                    //Opretter en konkurrence for en svømmer
+                    createCompetition();
                     break;
 
                 case "3":
@@ -418,11 +418,41 @@ public class Controller {
                     //Viser tider for alle svømmere
                     showCompSwimmerTimes();
 
+                case "5":
+                    //Viser nuværende konkurrencer i systemet
+                    showCompetitions();
+                    break;
+
                 default:
                     ui.userInputNotValid();
                     break;
             }
 
+        }
+    }
+
+    private void showCompetitions() {
+        if (m.showCompetitions() == null) {
+            ui.printMessage("Ingen konkurrencer lige nu!");
+        } else ui.printMessage(m.showCompetitions());
+    }
+
+    private void createCompetition() {
+        ui.printMessage("Hvilken svømmer ønsker du at oprette en konkurrence for?");
+        CompSwimmer swimmer = m.findCompSwimmer(ui.userInput());
+        if (swimmer != null) {
+            ui.printMessage("Hvad er stævnes navn?");
+            String compName = ui.userInput();
+            ui.printMessage("Hvilken dato blev stævnet afholdt?");
+            String compDate = ui.userInput();
+            ui.printMessage("Hvilken tid fik svømmeren?");
+            double swimTime = ui.userDoubleput();
+            ui.userInput();
+            Competition newCompetition = new Competition(compName, compDate, swimmer, swimTime);
+            ui.printMessage(newCompetition.toString());
+            m.addCompetition(newCompetition);
+        } else {
+            ui.printMessage("Ingen svømmer med det navn!");
         }
     }
 

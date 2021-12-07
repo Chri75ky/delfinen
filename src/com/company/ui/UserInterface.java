@@ -33,9 +33,10 @@ public class UserInterface {
         printMessage("""
                 (0) Gå tilbage til hovedmenuen
                 (1) Se top 5
-                (2) Se konkurrencer
+                (2) Opret konkurrence
                 (3) Sæt stats for svømmer
-                (4) Se nuværende tider for svømmere""");
+                (4) Se nuværende tider for svømmere
+                (5) Se konkurrencer""");
     }
 
     public void userInputNotValid() {

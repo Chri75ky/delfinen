@@ -1,7 +1,6 @@
 package com.company.domain;
 
 import com.company.accounting.MembershipFee;
-import com.company.database.FileHandler;
 import com.company.domain.Member.CompSwimmer;
 import com.company.domain.Member.Disciplin;
 import com.company.domain.Member.Member;
@@ -13,12 +12,12 @@ import com.company.ui.UserInterface;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
     boolean isRunning = true;
 
     private final UserInterface ui = new UserInterface();
-    private final FileHandler fh = new FileHandler();
     private final MemberController m = new MemberController();
     private final MembershipFee membershipFee = new MembershipFee();
     private final UserController u = new UserController();
@@ -189,6 +188,7 @@ public class Controller {
             switch (userInput) {
                 case "0":
                     run = false;
+                    start();
                     break;
 
                 case "1":
@@ -235,6 +235,12 @@ public class Controller {
 
 
     private void topFive() {
+        String[] topFive = new String[0];
+
+        if (topFive != null) {
+            ui.printMessage("""
+                    Det her er top 5 svømmere udfra de indtastede resultater""");
+        }
     }
 
     public void exit() throws FileNotFoundException {
@@ -389,6 +395,7 @@ public class Controller {
             switch (userInput) {
                 case "0":
                     run = false;
+                    start();
                     break;
 
                 case "1":
@@ -398,6 +405,8 @@ public class Controller {
 
                 case "2":
                     //Kigger på konkurrencer for de forskellige svømmere
+
+                    break;
 
                 case "3":
                     //gør at træner kan redigere konkurrencesvømmerens stats

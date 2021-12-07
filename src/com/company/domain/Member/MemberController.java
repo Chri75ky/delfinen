@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
-    private final ArrayList<Member> newMembers = new ArrayList<>();
+    //private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
     //newCompSwimmers er konkurrencesvømmere som er blevet tildelt en tid af deres træner
-    private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
+    //private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
     private final ArrayList<Competition> competitions = new ArrayList<>();
-    CompSwimmer[] topFiveCompSwimmers = new CompSwimmer[5];
+    private final ArrayList<CompSwimmer> topFiveCompSwimmers = new ArrayList<>();
 
     // Tilføjer et medlem til en liste ude fra programmet
     public void addMembersToFile() throws FileNotFoundException {
-        PrintStream ps = new PrintStream(new FileOutputStream("data/Medlemmer.csv", true));
+        PrintStream ps = new PrintStream(new FileOutputStream("data/Medlemmer.csv", false));
         Scanner out = new Scanner("data/Medlemmer.csv");
 
         while (out.hasNextLine()) {
@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     public void addCompSwimmerToFile() throws FileNotFoundException {
-        PrintStream ps = new PrintStream(new FileOutputStream("data/KonkurrenceSvømmer.csv", true));
+        PrintStream ps = new PrintStream(new FileOutputStream("data/KonkurrenceSvømmer.csv", false));
         Scanner out = new Scanner("data/KonkurrenceSvømmer.csv");
 
         while (out.hasNextLine()) {
@@ -45,11 +45,11 @@ public class MemberController {
 
 
     public void saveMember(Member member) {
-        newMembers.add(member);
+        members.add(member);
     }
 
     public void saveCompSwimmer(CompSwimmer compSwimmer) {
-        newCompSwimmers.add(compSwimmer);
+        compSwimmers.add(compSwimmer);
     }
     // Finder og returner et medlem fra ArrayList
     public Member findMember(String name) {
@@ -64,17 +64,16 @@ public class MemberController {
     public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (Member member : newMembers) {
+        for (Member member: members) {
             sb.append(member.toCSV()).append('\n');
         }
-
         return sb.toString();
     }
     // Samme som til member ArrayList
     public String compSwimmerToCSV() {
         StringBuilder sb = new StringBuilder();
 
-        for (CompSwimmer compSwimmer : newCompSwimmers) {
+        for (CompSwimmer compSwimmer : compSwimmers) {
             sb.append(compSwimmer.toCSV()).append('\n');
         }
 
@@ -140,13 +139,9 @@ public class MemberController {
                 boolean membershipStatus;
                 membershipStatus = tokens[2].equalsIgnoreCase("true");
                 Disciplin discipline = Disciplin.valueOf(tokens[4]);
-                if (tokens.length == 6) {
-                    double bestTime = Double.parseDouble(tokens[5]);
-                    CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline, bestTime);
-                } else {
-                    CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline);
-                    compSwimmers.add(currentCompSwimmer);
-                }
+                double bestTime = Double.parseDouble(tokens[5]);
+                CompSwimmer currentCompSwimmer = new CompSwimmer(name, age, membershipStatus, discipline, bestTime);
+                compSwimmers.add(currentCompSwimmer);
             }
         } catch (IOException e) {
             System.out.println("File Read Error");
@@ -166,7 +161,7 @@ public class MemberController {
     public void setCompSwimmerStats(CompSwimmer compSwimmer, double time) {
         compSwimmer.setTime(time);
         compSwimmers.remove(compSwimmer);
-        newCompSwimmers.add(compSwimmer);
+        compSwimmers.add(compSwimmer);
     }
 
     // Viser de forskellige tider for svømmere
@@ -198,10 +193,57 @@ public class MemberController {
     //denne metode sammenligner? sorterer? svømmerne fra arraylisten og putter de bedste tider ind i arayet
     //UWU
     public void getTopFiveList() {
-        for(int i=0; i < newCompSwimmers.size(); i++) {
+        QuickSort.sort(compSwimmers);
+        CompSwimmer firstPlace = compSwimmers.get(0);
+        CompSwimmer secondPlace = compSwimmers.get(1);
+        CompSwimmer thirdPlace = compSwimmers.get(2);
+        CompSwimmer fourthPlace = compSwimmers.get(3);
+        CompSwimmer fifthPlace = compSwimmers.get(4);
 
+        topFiveCompSwimmers.add(firstPlace);
+        topFiveCompSwimmers.add(secondPlace);
+        topFiveCompSwimmers.add(thirdPlace);
+        topFiveCompSwimmers.add(fourthPlace);
+        topFiveCompSwimmers.add(fifthPlace);
 
+    }
+
+    public void addTopFiveToFile() throws FileNotFoundException {
+        getTopFiveList();
+        PrintStream ps = new PrintStream(new FileOutputStream("data/Top Five.csv", false));
+        Scanner out = new Scanner("data/Top Five.csv");
+
+        while (out.hasNextLine()) {
+            out.nextLine();
         }
 
+        // Tilføjer medlemmet til filen
+        ps.append(topFiveToCSV());
+    }
+
+    public String topFiveToCSV() {
+        StringBuilder sb = new StringBuilder();
+
+        for (CompSwimmer compSwimmer : topFiveCompSwimmers) {
+            sb.append(compSwimmer.toCSV()).append('\n');
+        }
+
+        return sb.toString();
+    }
+
+    public void readTopFiveFromFile() {
+        try (BufferedReader in = new BufferedReader(new FileReader("data/Top Five.csv"))) {
+            String str;
+            while ((str = in.readLine()) != null) {
+                String[] tokens = str.split(";");
+                System.out.println(Arrays.toString(tokens));
+            }
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
+    }
+
+    public void removeMember(Member member) {
+        members.remove(member);
     }
 }

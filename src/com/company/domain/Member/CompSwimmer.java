@@ -15,10 +15,6 @@ public class CompSwimmer extends Member {
         this.time = time;
     }
 
-    public CompSwimmer() {
-        super();
-    }
-
     public String toCSV() {
         return fullName + ";" +
                 age + ";" +

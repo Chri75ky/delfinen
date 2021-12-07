@@ -123,20 +123,20 @@ public class MembershipFee {
         updateKontigentFile(allKontingentsWithoutPaid);
     }
 
-    public void updateKontigentFile(List<Kontingent> newData) {
+    public void updateKontigentFile(List<Kontingent> kontingentsForFile) {
         fh.clearFile(KONTINGENT_FILE);
-        saveKontigentListToFile(newData);
+        saveKontigentListToFile(kontingentsForFile);
     }
 
     public void saveKontigentListToFile(List<Kontingent> kontigents) {
-        StringBuilder str = new StringBuilder();
+        StringBuilder kontingentsForFile = new StringBuilder();
 
         for (Kontingent k : kontigents) {
             String kontingentCSV = k.toCSV();
-            str.append(kontingentCSV);
+            kontingentsForFile.append(kontingentCSV);
         }
 
-        fh.saveToCSV(KONTINGENT_FILE, str.toString());
+        fh.saveToCSV(KONTINGENT_FILE, kontingentsForFile.toString());
     }
 
     public List<Kontingent> getAllKontingents() {

@@ -73,33 +73,33 @@ public class MembershipFee {
     public void memberToRestance(String nameOfMember) {
         List<Kontingent> allKontingents = getAllKontingents();
 
-        for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getMemberName().contentEquals(nameOfMember) && kontigent.eligibleForRestance()) {
-                kontigent.setInRestance();
+        for (Kontingent kontingent : allKontingents) {
+            if (kontingent.getMemberName().contentEquals(nameOfMember) && kontingent.eligibleForRestance()) {
+                kontingent.setInRestance();
             }
         }
-        updateKontigentFile(allKontingents);
+        updateKontingentFile(allKontingents);
     }
 
     public void allMembersToRestance() {
         List<Kontingent> allKontingents = getAllKontingents();
 
-        for (Kontingent kontigent : allKontingents) {
-            if (kontigent.eligibleForRestance()) {
-                kontigent.setInRestance();
+        for (Kontingent kontingent : allKontingents) {
+            if (kontingent.eligibleForRestance()) {
+                kontingent.setInRestance();
             }
         }
-        updateKontigentFile(allKontingents);
+        updateKontingentFile(allKontingents);
     }
 
     public String getMembersInRestance() {
-        List<Kontingent> allKontigents = getAllKontingents();
+        List<Kontingent> allKontingents = getAllKontingents();
         StringBuilder str = new StringBuilder();
 
         int index = 1;
-        for (Kontingent kontigent : allKontigents) {
-            if (kontigent.getInRestance() && !kontigent.getIsPaid()) {
-                str.append("(" + index + ") " + kontigent.getMemberName() + " har " + kontigent.getPrice() + " DKK i restance\n");
+        for (Kontingent kontingent : allKontingents) {
+            if (kontingent.getInRestance() && !kontingent.getIsPaid()) {
+                str.append("(" + index + ") " + kontingent.getMemberName() + " har " + kontingent.getPrice() + " DKK i restance\n");
                 index++;
             }
         }
@@ -115,23 +115,23 @@ public class MembershipFee {
         List<Kontingent> allKontingents = getAllKontingents();
         List<Kontingent> allKontingentsWithoutPaid = new ArrayList<>();
 
-        for (Kontingent kontigent : allKontingents) {
-            if (!kontigent.getIsPaid()) {
-                allKontingentsWithoutPaid.add(kontigent);
+        for (Kontingent kontingent : allKontingents) {
+            if (!kontingent.getIsPaid()) {
+                allKontingentsWithoutPaid.add(kontingent);
             }
         }
-        updateKontigentFile(allKontingentsWithoutPaid);
+        updateKontingentFile(allKontingentsWithoutPaid);
     }
 
-    public void updateKontigentFile(List<Kontingent> newData) {
+    public void updateKontingentFile(List<Kontingent> newData) {
         fh.clearFile(KONTINGENT_FILE);
-        saveKontigentListToFile(newData);
+        saveKontingentListToFile(newData);
     }
 
-    public void saveKontigentListToFile(List<Kontingent> kontigents) {
+    public void saveKontingentListToFile(List<Kontingent> kontingents) {
         StringBuilder str = new StringBuilder();
 
-        for (Kontingent k : kontigents) {
+        for (Kontingent k : kontingents) {
             String kontingentCSV = k.toCSV();
             str.append(kontingentCSV);
         }
@@ -149,7 +149,7 @@ public class MembershipFee {
             int memberAge = Integer.parseInt(kontingentData[1]);
 
             boolean membershipStatus;
-            if (kontingentData[2].contentEquals("Aktivt medlemsskab")) {
+            if (kontingentData[2].contentEquals("Aktivt medlemskab")) {
                 membershipStatus = true;
             } else {
                 membershipStatus = false;
@@ -198,15 +198,15 @@ public class MembershipFee {
 
     public boolean checkKontingentsForPaid() {
         List<Kontingent> allKontingents = getAllKontingents();
-        boolean aKontigentIsPaid = false;
+        boolean aKontingentIsPaid = false;
 
-        for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getIsPaid()) {
-                aKontigentIsPaid = true;
+        for (Kontingent kontingent : allKontingents) {
+            if (kontingent.getIsPaid()) {
+                aKontingentIsPaid = true;
                 break;
             }
         }
-        return aKontigentIsPaid;
+        return aKontingentIsPaid;
     }
 
     public String showListOfMembers(String fileName) {
@@ -224,8 +224,8 @@ public class MembershipFee {
         boolean memberExistsAndOwes = false;
         List<Kontingent> allKontingents = getAllKontingents();
 
-        for (Kontingent kontigent : allKontingents) {
-            if (kontigent.getMemberName().contentEquals(nameOfMember) && !kontigent.getIsPaid()) {
+        for (Kontingent kontingent : allKontingents) {
+            if (kontingent.getMemberName().contentEquals(nameOfMember) && !kontingent.getIsPaid()) {
                 memberExistsAndOwes = true;
             }
         }
@@ -244,7 +244,7 @@ public class MembershipFee {
             if (k.getMemberName().contentEquals(nameOfMember) && !k.getIsPaid()) {
 
                 if (!k.getInRestance()) {
-                    restanceOrNot = "i kontigent";
+                    restanceOrNot = "i kontingent";
                 } else {
                     restanceOrNot = "i restance";
                 }
@@ -266,7 +266,7 @@ public class MembershipFee {
                 k.isPaid();
             }
         }
-        updateKontigentFile(allKontingents);
+        updateKontingentFile(allKontingents);
     }
 
 }

@@ -2,7 +2,6 @@ package com.company;
 
 import com.company.domain.Controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {

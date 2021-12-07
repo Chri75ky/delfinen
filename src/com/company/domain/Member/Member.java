@@ -8,7 +8,7 @@ public class Member {
     protected boolean activeMembership;
     protected String team;
 
-    //konstruktør
+
     public Member(String fullName, int age, boolean activeMembership) {
         this.fullName = fullName;
         this.age = age;
@@ -18,16 +18,6 @@ public class Member {
         } else this.team = "Senior";
     }
 
-    //CSV konstruktør
-    public Member(String CSV) {
-        String[] elements = CSV.split(";");
-
-        this.fullName = (elements[0]);
-        this.age = Integer.parseInt(elements[1]);
-        this.activeMembership = Boolean.parseBoolean(elements[2]);
-        this.team = elements[3];
-    }
-
     public String toCSV() {
         return fullName + ";" +
                 age + ";" +
@@ -35,7 +25,7 @@ public class Member {
                 team;
     }
 
-    //Getters
+
     public String getFullName() {
         return fullName;
     }
@@ -48,11 +38,6 @@ public class Member {
         return activeMembership;
     }
 
-    public String getTeam() {
-        return team;
-    }
-
-    //toString
     @Override
     public String toString() {
         return "Medlem: " + fullName + "\n" + "Alder: " + age + "\n" + "Aktivt medlemskab: " + activeMembership + "\n" + "Hold: " + team;

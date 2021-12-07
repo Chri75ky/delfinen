@@ -33,37 +33,30 @@ public class Controller {
                     break;
 
                 case "1":
-                    //opret medlem
                     createUser();
                     break;
 
                 case "2":
-                    //log ind på eksisterende bruger
                     login();
                     break;
 
                 case "3":
-                    //opret en bruger
                     createMember();
                     break;
 
                 case "4":
-                    //lav en medlem om til en konkurrencesvømmer
                     changeToCompSwimmer();
                     break;
 
                 case "5":
-                    //kasserer menu
                     cashierMenu();
                     break;
 
                 case "6":
-                    //træner menu
                     coachMenu();
                     break;
 
                 case "7":
-                    //se alle medlemmer fra fil
                     seeMembers();
                     break;
 
@@ -74,7 +67,7 @@ public class Controller {
         }
     }
 
-    //TODO lav oprettelse af user og gem til arrayList
+
     private void createUser() throws FileNotFoundException {
         ui.printMessage("Indtast brugerens fulde navn:");
         String fullName = ui.userInput();
@@ -101,7 +94,7 @@ public class Controller {
     }
 
 
-    private void login() throws IOException {
+    private void login() {
         ui.printMessage("Type in user name: ");
         String name = ui.userInput();
         User user = u.findUser(name);
@@ -112,9 +105,9 @@ public class Controller {
         }
     }
 
-    //metode til at oprette et medlem
-    private void createMember() throws FileNotFoundException {
-        //henter navn, alder, medlemskabstype
+    // Metode til at oprette et medlem
+    private void createMember() {
+        // Henter navn, alder, medlemskabstype
         ui.printMessage("Indtast personens fulde navn:");
         String fullName = ui.userInput();
         ui.printMessage("Indtast alder:");
@@ -123,9 +116,8 @@ public class Controller {
         ui.userInput();
         String membershipStatus = ui.userInput();
 
-        // laver en boolean for at sætte medlemskabstype til aktiv eller passiv
+        // Laver en boolean for at sætte medlemskabstype til aktiv eller passiv
         boolean activeMembership = false;
-        String team;
         if (membershipStatus.equalsIgnoreCase("J")) {
             activeMembership = true;
         }
@@ -136,13 +128,14 @@ public class Controller {
 
     }
 
-    //metode til at lave et almindeligt medlem om til en konkurrencesvømmer
-    private void changeToCompSwimmer() throws FileNotFoundException {
+    // Metode til at lave et almindeligt medlem om til en konkurrencesvømmer
+    private void changeToCompSwimmer() {
         ui.printMessage("Ønsker du at skifte til konkurrencesvømmer? (j/n)");
         String input = ui.userInput();
         if (input.equalsIgnoreCase("J")) {
             ui.printMessage("Indtast navnet på medlemmet du gerne vil konvertere til konkurrencesvømmer:");
             String memberName = ui.userInput();
+            // Tjek hvorvidt personen eksisterer i programmet
             Member member = m.findMember(memberName);
             if (member == null) {
                 ui.printMessage("Personen eksisterer ikke i databasen.");
@@ -157,6 +150,7 @@ public class Controller {
 
                 int choice = ui.userIntput();
                 ui.userInput();
+                // Sæt en disciplin til brugeren ud fra hvad de har valgt
                 if (choice == 1) {
                     CompSwimmer compSwimmer = new CompSwimmer(member.getFullName(), member.getAge(), member.getMembershipStatus(), Disciplin.BUTTERFLY);
                     m.saveCompSwimmer(compSwimmer);
@@ -192,32 +186,32 @@ public class Controller {
                     break;
 
                 case "1":
-                    //Opret kontigent for enkeltstående medlem eller alle medlemmer
+                    // Opret kontingent for enkeltstående medlem eller alle medlemmer
                     chargeKontingent();
                     break;
 
                 case "2":
-                    //Ændre medlem eller alle medlemmer med manglende kontigentbetaling til restance
-                    changeMemberContigentToRestance();
+                    // Ændre medlem eller alle medlemmer med manglende kontingentbetaling til restance
+                    changeMemberContingentToRestance();
                     break;
 
                 case "3":
-                    //Se medlemmer i restance
+                    // Se medlemmer i restance
                     seeMembersInRestance();
                     break;
 
                 case "4":
-                    //Noter medlem som betalt
+                    // Noter medlem som betalt
                     noteMemberAsPaid();
                     break;
 
                 case "5":
-                    //Se det årlige forventede kontigentindbetaling
+                    // Se det årlige forventede kontingentindbetaling
                     yearlyExpectedKontingentFee();
                     break;
 
                 case "6":
-                    //Slet alle betalte kontigent og restance regninger fra systemet
+                    // Slet alle betalte kontingent og restance regninger fra systemet
                     deleteAllPaidKontingentsAndRestance();
                     break;
 
@@ -227,7 +221,7 @@ public class Controller {
             }
         }
     }
-
+    // Viser både medlemmer og svømmere fra deres respektive filer
     private void seeMembers() {
         m.readMembersFromFile();
         m.readCompSwimmersFromFile();
@@ -237,7 +231,7 @@ public class Controller {
     private void topFive() {
         ui.printMessage(m.getTopFive());
     }
-
+    // Gemmer medlemmer og svømmere ved lukning af program
     public void exit() throws FileNotFoundException {
         m.addMembersToFile();
         m.addCompSwimmerToFile();
@@ -248,8 +242,8 @@ public class Controller {
     public void chargeKontingent() {
         if (membershipFee.checkMemberFileForMembers()) {
             ui.printMessage("""
-                    (1) Opret kontigent for enkeltstående medlem
-                    (2) Opret kontigent for alle medlemmer""");
+                    (1) Opret kontingent for enkeltstående medlem
+                    (2) Opret kontingent for alle medlemmer""");
 
             String userInput = ui.userInput();
             switch (userInput) {
@@ -273,7 +267,7 @@ public class Controller {
 
         if (membershipFee.memberExistInFile(nameOfMember, "mF")) {
             membershipFee.chargeMember(nameOfMember);
-            ui.printMessage("Kontigent oprettet for " + nameOfMember + "\n");
+            ui.printMessage("Kontingent oprettet for " + nameOfMember + "\n");
         } else {
             ui.printMessage("Kunne ikke finde " + nameOfMember + " i systemet");
             ui.printMessage("Ønsker du at se en liste over medlemmer i systemet? (y/n) ");
@@ -281,7 +275,7 @@ public class Controller {
         }
     }
 
-    public void changeMemberContigentToRestance() {
+    public void changeMemberContingentToRestance() {
         if (membershipFee.getAllKontingents().size() > 0) {
             ui.printMessage("""
                     (1) Sæt enkeltstående medlem i restance
@@ -307,8 +301,8 @@ public class Controller {
             membershipFee.memberToRestance(nameOfMember);
             ui.printMessage(nameOfMember + " er nu sat i restance\n");
         } else {
-            ui.printMessage("Der er ingen medlemmer af navnet " + nameOfMember + ", som har manglende kontigentbetaling");
-            ui.printMessage("Ønsker du at se en liste over medlemmer med manglende kontigentbetaling? (y/n) ");
+            ui.printMessage("Der er ingen medlemmer af navnet " + nameOfMember + ", som har manglende kontingentbetaling");
+            ui.printMessage("Ønsker du at se en liste over medlemmer med manglende kontingentbetaling? (y/n) ");
             showListOfMembers("kF");
         }
     }
@@ -324,16 +318,16 @@ public class Controller {
 
     public void yearlyExpectedKontingentFee() {
         int expectedKontingent = membershipFee.calculateExpectedKontingent();
-        ui.printMessage("Det forventede kontigentindbetaling er " + expectedKontingent + " DKK årligt\n");
+        ui.printMessage("Det forventede kontingentindbetaling er " + expectedKontingent + " DKK årligt\n");
     }
 
     public void deleteAllPaidKontingentsAndRestance() {
 
         if (membershipFee.checkKontingentsForPaid()) {
             membershipFee.deleteAllPaidKontingentsAndRestanceInFile();
-            ui.printMessage("De betalte kontigent eller restance regninger er fjernet fra systemet\n");
+            ui.printMessage("De betalte kontingent eller restance regninger er fjernet fra systemet\n");
         } else {
-            ui.printMessage("Der er ingen betalte kontigent eller restance regninger i systemet\n");
+            ui.printMessage("Der er ingen betalte kontingent eller restance regninger i systemet\n");
         }
     }
 
@@ -357,7 +351,7 @@ public class Controller {
             payBill(nameOfMember);
 
         } else {
-            ui.printMessage("Der er ingen medlemmer med navnet " + nameOfMember + " som har manglende kontigent eller restance betalinger\n");
+            ui.printMessage("Der er ingen medlemmer med navnet " + nameOfMember + " som har manglende kontingent eller restance betalinger\n");
         }
     }
 
@@ -398,27 +392,27 @@ public class Controller {
                     break;
 
                 case "1":
-                    //se top 5 konkurrencesvømmer statistik ud fra den bedste tid
+                    // Se top 5 konkurrencesvømmer statistik ud fra den bedste tid
                     topFive();
                     break;
 
                 case "2":
-                    //Opretter en konkurrence for en svømmer
+                    // Opretter en konkurrence for en svømmer
                     createCompetition();
                     break;
 
                 case "3":
-                    //gør at træner kan redigere konkurrencesvømmerens stats
+                    // Gør at træner kan redigere konkurrencesvømmerens stats
                     setCompSwimmerStats();
                     break;
 
                 case "4":
-                    //Viser tider for alle svømmere
+                    // Viser tider for alle svømmere
                     showCompSwimmerTimes();
                     break;
 
                 case "5":
-                    //Viser nuværende konkurrencer i systemet
+                    // Viser nuværende konkurrencer i systemet
                     showCompetitions();
                     break;
 
@@ -435,7 +429,7 @@ public class Controller {
             ui.printMessage("Ingen konkurrencer lige nu!");
         } else ui.printMessage(m.showCompetitions());
     }
-
+    // Skaber en konkurrence ud fra oplysninger givet af bruger
     private void createCompetition() {
         ui.printMessage("Hvilken svømmer ønsker du at oprette en konkurrence for?");
         CompSwimmer swimmer = m.findCompSwimmer(ui.userInput());
@@ -459,6 +453,7 @@ public class Controller {
         m.showCompSwimmerTimes();
     }
 
+    // Sætter en tid til en svømmer
     private void setCompSwimmerStats() {
         ui.printMessage("Hvilken svømmer ønsker du at sætte en ny tid til?");
         CompSwimmer swimmerToSetTime = m.findCompSwimmer(ui.userInput());

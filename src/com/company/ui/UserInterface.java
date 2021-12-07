@@ -59,7 +59,4 @@ public class UserInterface {
         System.out.println(s);
     }
 
-    public void printMessage(StringBuilder s) {
-        System.out.println(s);
-    }
 }

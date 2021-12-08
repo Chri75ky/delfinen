@@ -109,7 +109,6 @@ public class Kontingent {
             inRestanceText = "Kontingent";
         }
 
-
         return memberName + ";" +
                 memberAge + ";" +
                 membershipStatusText + ";" +
@@ -118,5 +117,4 @@ public class Kontingent {
                 inRestanceText + "\n";
 
     }
-
 }

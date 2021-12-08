@@ -15,7 +15,6 @@ public class UserController {
         addUserToFile(user);
     }
 
-    //TODO INPROGRESS prøver at lave sådan at den kan finde brugeren direkte fra textfilen
     //finder en bruger i brugerListen, ved brug af navn
     public User findUser(String name) {
         for (com.company.domain.User.User user : users) {
@@ -26,6 +25,9 @@ public class UserController {
         return null;
     }
 
+    /*bruges ikke, da man ikke skal kunne se brugerne i programmet,
+    men har lavet metoden just in case, mere for at se
+    om indlæsning til og fra filen fungerer som det skal*/
     public StringBuilder showUsersFromFile() throws FileNotFoundException {
         Scanner users = new Scanner(new File("data/Brugere.csv"));
         StringBuilder allUsers = new StringBuilder();
@@ -40,15 +42,11 @@ public class UserController {
         PrintStream ps = new PrintStream(new FileOutputStream("data/Brugere.csv", true));
         Scanner out = new Scanner("data/Brugere.csv");
 
-
         while (out.hasNextLine()) {
             out.nextLine();
         }
 
-        // Tilføjer user til "UserList.txt"
         ps.append(toCSV());
-
-        //TODO Fjern user fra arraylist?
     }
 
     public String toCSV() {

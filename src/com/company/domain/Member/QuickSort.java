@@ -7,6 +7,7 @@ public class QuickSort {
         quicksort(array, 0, array.size()-1);
     }
 
+    //metoden som bruges til at sortere i arraylisten af konkurrencesvømmere alt efter hvem der har den bedste tid
     private static void quicksort(ArrayList<CompSwimmer> a, int p, int r) {
         if( p < r ) {
             int i = p-1;

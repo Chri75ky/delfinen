@@ -8,7 +8,6 @@ public class Member {
     protected boolean activeMembership;
     protected String team;
 
-
     public Member(String fullName, int age, boolean activeMembership) {
         this.fullName = fullName;
         this.age = age;
@@ -18,17 +17,12 @@ public class Member {
         } else this.team = "Senior";
     }
 
-    public Member() {
-
-    }
-
     public String toCSV() {
         return fullName + ";" +
                 age + ";" +
                 activeMembership + ";" +
                 team;
     }
-
 
     public String getFullName() {
         return fullName;

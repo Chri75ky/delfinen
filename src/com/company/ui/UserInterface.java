@@ -40,25 +40,28 @@ public class UserInterface {
                 (5) Se konkurrencer""");
     }
 
+    //
     public void userInputNotValid() {
         System.out.println("Userinput not valid...\n");
     }
 
+    //scanner som modtager String
     public String userInput() {
         return scanner.nextLine();
     }
 
+    //scanner som modtager int ;D pun INTended
     public int userIntput() {
         return scanner.nextInt();
     }
 
+    //ja... scanner som modtager double :'D shut up, we ran out of ideas
     public double userDoubleput() {
         return scanner.nextDouble();
     }
 
+    //
     public void printMessage(String s) {
         System.out.println(s);
     }
-
-
 }

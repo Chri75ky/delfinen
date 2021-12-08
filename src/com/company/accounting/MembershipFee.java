@@ -11,7 +11,6 @@ public class MembershipFee {
     private static final String MEMBER_FILE = "data/Medlemmer.csv";
     private static final String KONTINGENT_FILE = "data/Kontingent.csv";
 
-
     public void chargeMember(String nameOfMember) {
         ArrayList<String[]> listOfMembers = fh.getLinesInFile(MEMBER_FILE);
 
@@ -268,5 +267,4 @@ public class MembershipFee {
         }
         updateKontingentFile(allKontingents);
     }
-
 }

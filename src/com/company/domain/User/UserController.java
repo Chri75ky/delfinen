@@ -38,6 +38,7 @@ public class UserController {
         return allUsers;
     }
 
+
     public void addUserToFile(User user) throws FileNotFoundException {
         PrintStream ps = new PrintStream(new FileOutputStream("data/Brugere.csv", true));
         Scanner out = new Scanner("data/Brugere.csv");

@@ -47,6 +47,7 @@ public class CompSwimmer extends Member {
     }
 
 
+    //metode brugt til at sammenligner konkurrencesvømmernes tider, bruges til at lave top 5 liste
     public int compareTo(CompSwimmer otherCompSwimmer) {
         if (this.time < otherCompSwimmer.time) {
             return -1;

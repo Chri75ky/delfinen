@@ -18,10 +18,6 @@ public class Member {
         } else this.team = "Senior";
     }
 
-    public Member() {
-
-    }
-
     public String toCSV() {
         return fullName + ";" +
                 age + ";" +

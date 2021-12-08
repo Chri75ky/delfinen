@@ -9,10 +9,7 @@ import java.util.Scanner;
 
 public class MemberController {
     private final ArrayList<Member> members = new ArrayList<>();
-    //private final ArrayList<Member> newMembers = new ArrayList<>();
     private final ArrayList<CompSwimmer> compSwimmers = new ArrayList<>();
-    //newCompSwimmers er konkurrencesvømmere som er blevet tildelt en tid af deres træner
-    //private final ArrayList<CompSwimmer> newCompSwimmers = new ArrayList<>();
     private final ArrayList<Competition> competitions = new ArrayList<>();
     private final ArrayList<CompSwimmer> topFiveCompSwimmers = new ArrayList<>();
 
@@ -43,14 +40,16 @@ public class MemberController {
 
     }
 
-
+    //gemmer en member til arrayListen af members
     public void saveMember(Member member) {
         members.add(member);
     }
 
+    //gemmer en konkurrencesvømmer til dets arrayList
     public void saveCompSwimmer(CompSwimmer compSwimmer) {
         compSwimmers.add(compSwimmer);
     }
+
     // Finder og returner et medlem fra ArrayList
     public Member findMember(String name) {
         for (Member member : members) {
@@ -60,6 +59,7 @@ public class MemberController {
         }
         return null;
     }
+
     // Laver en CSV formateret String af ArrayList af medlemmer
     public String memberToCSV() {
         StringBuilder sb = new StringBuilder();
@@ -69,6 +69,7 @@ public class MemberController {
         }
         return sb.toString();
     }
+
     // Samme som til member ArrayList
     public String compSwimmerToCSV() {
         StringBuilder sb = new StringBuilder();
@@ -79,6 +80,7 @@ public class MemberController {
 
         return sb.toString();
     }
+
     // Læser medlemmer fra deres fil og viser til bruger
     public void readMembersFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/Medlemmer.csv"))) {
@@ -91,7 +93,9 @@ public class MemberController {
             System.out.println("File Read Error");
         }
     }
+
     // Samme som medlemmer
+    //Burde nok ha' fundet en måde at sammensætte alle de her gentagende metoder, med brug af et interface?
     public void readCompSwimmersFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/KonkurrenceSvømmer.csv"))) {
             String str;
@@ -148,6 +152,7 @@ public class MemberController {
         }
     }
 
+    //finder det ønskede konkurrencesvømmer i arraylisten
     public CompSwimmer findCompSwimmer(String name) {
         for (CompSwimmer compSwimmer : compSwimmers) {
             if (compSwimmer.getFullName().equals(name)) {
@@ -177,6 +182,7 @@ public class MemberController {
 
     }
 
+    //gemmer konkurrence til dets svarende ArrayList
     public void addCompetition(Competition competition) {
         competitions.add(competition);
     }
@@ -208,6 +214,7 @@ public class MemberController {
 
     }
 
+    //skriver listen af top 5 ud, ind i dets svarende CSV fil
     public void addTopFiveToFile() throws FileNotFoundException {
         getTopFiveList();
         PrintStream ps = new PrintStream(new FileOutputStream("data/Top Five.csv", false));
@@ -221,6 +228,7 @@ public class MemberController {
         ps.append(topFiveToCSV());
     }
 
+    //CSV
     public String topFiveToCSV() {
         StringBuilder sb = new StringBuilder();
 
@@ -231,6 +239,7 @@ public class MemberController {
         return sb.toString();
     }
 
+    //indlæser listen fra filen
     public void readTopFiveFromFile() {
         try (BufferedReader in = new BufferedReader(new FileReader("data/Top Five.csv"))) {
             String str;
@@ -243,6 +252,7 @@ public class MemberController {
         }
     }
 
+    //fjerner et medlem fra ArrayListen
     public void removeMember(Member member) {
         members.remove(member);
     }

@@ -405,7 +405,6 @@ public class Controller {
                 break;
 
             case "2":
-                //TODO implement
                 ui.printMessage("Not yet implemented\n");
                 break;
 
